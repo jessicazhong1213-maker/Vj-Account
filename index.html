@@ -10,106 +10,119 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.45;min-height:100vh}
 .loading{padding:80px;text-align:center;color:var(--muted);font-size:16px}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--ink);color:#fff;flex-wrap:wrap;gap:10px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:38px;height:38px;border-radius:9px;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:15px;font-weight:700;flex-shrink:0}
-.brand h1{font-size:17px;font-weight:600;margin-bottom:2px}
-.brand p{font-size:11px;opacity:.6;letter-spacing:1.5px}
-.yr{display:flex;align-items:center;gap:8px;font-size:12px;opacity:.85}
-.yr select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 9px;font-family:var(--sans)}
-.tabs{display:flex;gap:3px;padding:8px 16px 0;background:var(--ink);overflow-x:auto}
-.tab{display:flex;align-items:center;gap:5px;padding:9px 13px;border:none;background:transparent;color:rgba(255,255,255,.6);border-radius:9px 9px 0 0;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;white-space:nowrap}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--ink);color:#fff;flex-wrap:wrap;gap:8px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:9px;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:14px;font-weight:700;flex-shrink:0}
+.brand h1{font-size:16px;font-weight:600}
+.brand p{font-size:10px;opacity:.6;letter-spacing:1.5px}
+.yr select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:4px 8px;font-family:var(--sans);font-size:12px}
+.tabs{display:flex;gap:2px;padding:6px 12px 0;background:var(--ink);overflow-x:auto}
+.tab{display:flex;align-items:center;gap:4px;padding:8px 12px;border:none;background:transparent;color:rgba(255,255,255,.6);border-radius:8px 8px 0 0;cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:500;white-space:nowrap}
 .tab:hover{color:#fff}.tab.on{background:var(--paper);color:var(--ink);font-weight:600}
-.content{padding:20px;max-width:1100px;margin:0 auto}
-.card{background:var(--paper2);border:1px solid var(--line);border-radius:13px;padding:16px;margin-bottom:16px}
+.content{padding:16px;max-width:1100px;margin:0 auto}
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:14px}
 .card.no-pad{padding:0;overflow:hidden}
-.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.card h2{font-size:15px;font-weight:600;display:flex;align-items:center;gap:7px}
-.empty{color:var(--muted);text-align:center;padding:20px;font-size:13px}
-.dim{color:var(--muted)}.sm{font-size:12px}
+.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.card h2{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+.empty{color:var(--muted);text-align:center;padding:16px;font-size:13px}
+.dim{color:var(--muted)}.sm{font-size:12px}.xs{font-size:11px}
 .link{background:none;border:none;color:var(--green);cursor:pointer;font-size:12px;font-family:var(--sans);font-weight:600}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.gap{gap:10px}.span2{grid-column:1/-1}
-@media(max-width:700px){.grid4{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
-.kpi{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--ac,#1B2A4A);border-radius:13px;padding:14px}
-.kpi-t{font-size:11px;color:var(--muted)}
-.kpi-m{font-size:22px;font-weight:700;margin:4px 0 2px;font-variant-numeric:tabular-nums}
-.kpi-s{font-size:11px;color:var(--muted)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gap{gap:8px}.span2{grid-column:1/-1}.span3{grid-column:1/-1}
+@media(max-width:700px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:400px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr}}
+
+/* KPI */
+.kpi{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--ac,#1B2A4A);border-radius:13px;padding:12px}
+.kpi-t{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.kpi-m{font-size:20px;font-weight:700;margin:3px 0 1px;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi-s{font-size:10px;color:var(--muted)}
+.kpi-trend{font-size:11px;font-weight:600;margin-top:2px}
+.trend-up{color:var(--green)}.trend-down{color:var(--red)}.trend-flat{color:var(--muted)}
+
+/* 月度对比迷你图 */
+.mini-bars{display:flex;align-items:flex-end;gap:3px;height:36px;margin-top:8px}
+.mini-bar{flex:1;border-radius:3px 3px 0 0;min-height:3px;transition:height .3s}
+.mini-bar.cur{opacity:1}.mini-bar.prev{opacity:.4}
+
 .tbl{width:100%;border-collapse:collapse}
-.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:10px 13px;border-bottom:1px solid var(--line);font-weight:600}
-.tbl td{padding:10px 13px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tr.rf{background:#A140340a}
 .tbl .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .tbl .pos{color:var(--green);font-weight:600}.tbl .neg{color:var(--red);font-weight:600}
-.tbl.mini td,.tbl.mini th{padding:7px 5px;font-size:12px}
+.tbl.mini td,.tbl.mini th{padding:7px 10px;font-size:12px}
 .act{text-align:right;white-space:nowrap}
-.code{font-weight:600;color:var(--ink);background:var(--amber)22;padding:2px 7px;border-radius:5px;font-size:12px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);gap:10px}
+.code{font-weight:600;color:var(--ink);background:var(--amber)22;padding:2px 6px;border-radius:4px;font-size:11px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:8px}
 .row:last-child{border-bottom:none}
-.row-r{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.row-r{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .amt{font-weight:600;font-variant-numeric:tabular-nums}
-.pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:8px;border:1px solid var(--line);background:var(--paper2);color:var(--ink);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;transition:.15s}
+.pill{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--paper2);color:var(--ink);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;transition:.15s}
 .btn:hover{border-color:var(--ink2)}
 .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
-.btn.primary:hover{background:var(--ink2)}
 .btn.ghost{background:transparent;border-style:dashed}
 .btn.danger{color:var(--red);border-color:var(--red)44}
-.btn.sm{padding:5px 9px;font-size:12px}
+.btn.sm{padding:4px 8px;font-size:12px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .btn-col{display:flex;flex-direction:column;gap:8px}
-.icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px 6px;border-radius:5px;font-size:14px;flex-shrink:0}
+.icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:4px;font-size:14px}
 .icon-btn:hover{background:var(--line);color:var(--ink)}
-.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
-.srch{display:flex;align-items:center;gap:7px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;min-width:200px;color:var(--muted);flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:7px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;flex:1;min-width:180px;color:var(--muted)}
 .srch input{border:none;background:none;outline:none;font-family:var(--sans);font-size:13px;width:100%;color:var(--ink)}
 .fld{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
 .fld-l{font-size:12px;color:var(--ink2);font-weight:600}
 input,select,textarea{font-family:var(--sans);font-size:13px;border:1px solid var(--line);border-radius:7px;padding:8px 10px;background:var(--paper2);color:var(--ink);outline:none;width:100%}
 input:focus,select:focus,textarea:focus{border-color:var(--ink2)}
-.ta{width:100%;min-height:110px;resize:vertical;margin-bottom:10px}
+.ta{width:100%;min-height:100px;resize:vertical;margin-bottom:10px}
 .seg{display:flex;gap:3px;background:var(--line);padding:3px;border-radius:9px;margin-bottom:12px}
-.seg button{flex:1;padding:7px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;color:var(--ink2)}
+.seg button{flex:1;padding:6px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;color:var(--ink2)}
 .seg button.on{background:var(--paper2);color:var(--ink);box-shadow:0 1px 3px #0001}
 .ov{position:fixed;inset:0;background:#1B2A4A66;backdrop-filter:blur(3px);display:grid;place-items:center;padding:16px;z-index:50}
 .modal{background:var(--paper);border-radius:14px;width:100%;max-width:500px;max-height:90vh;overflow:auto;border:1px solid var(--line)}
 .modal.wide{max-width:700px}
 .modal-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper)}
 .modal-h h3{font-size:15px;font-weight:600}
-.modal-b{padding:18px}
-.modal-f{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.modal-b{padding:16px}
+.modal-f{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .match{display:flex;align-items:center;gap:8px;border-radius:9px;padding:9px 12px;margin-bottom:10px;font-size:13px}
 .match.ok{background:#0E7C7B16;border:1px solid #0E7C7B55;color:#0a5b5a}
 .match.no{background:#C8941E18;border:1px solid #C8941E66;color:#7a5b12}
-.advice p{margin-bottom:4px;font-size:13px;line-height:1.7}
 .comm-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .comm-row:last-child{border-bottom:none}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:9px;font-size:13px;font-weight:500;box-shadow:0 8px 24px #1b2a4a44;z-index:100;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:500;box-shadow:0 8px 24px #1b2a4a44;z-index:100;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
 .toast.show{opacity:1}
-.info-box{background:#0E7C7B18;border:1px solid #0E7C7B55;border-radius:10px;padding:12px 14px;font-size:12px;color:#0a5b5a;margin-bottom:14px}
+.info-box{background:#0E7C7B18;border:1px solid #0E7C7B55;border-radius:10px;padding:10px 12px;font-size:12px;color:#0a5b5a;margin-bottom:12px}
+.warn-box{background:#C8941E18;border:1px solid #C8941E55;border-radius:10px;padding:10px 12px;font-size:12px;color:#7a5b12;margin-bottom:12px}
 .login-wrap{display:grid;place-items:center;min-height:100vh;background:var(--ink)}
 .login-box{text-align:center;color:#fff;padding:40px;max-width:400px}
 .logo-big{width:64px;height:64px;border-radius:16px;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:26px;font-weight:700;margin:0 auto 20px}
-.login-box h1{font-size:22px;font-weight:600;margin-bottom:8px}
-.login-box p{opacity:.7;margin-bottom:28px;line-height:1.6}
 .user-info{font-size:12px;color:rgba(255,255,255,.7)}
-.btn-logout{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:var(--sans)}
-/* 服务项目标签 */
-.tags-input{display:flex;flex-wrap:wrap;gap:6px;border:1px solid var(--line);border-radius:7px;padding:6px 8px;background:var(--paper2);min-height:40px;cursor:text}
+.btn-logout{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:4px 10px;cursor:pointer;font-size:12px;font-family:var(--sans)}
+/* 标签输入 */
+.tags-input{display:flex;flex-wrap:wrap;gap:5px;border:1px solid var(--line);border-radius:7px;padding:5px 8px;background:var(--paper2);min-height:38px;cursor:text}
 .tags-input:focus-within{border-color:var(--ink2)}
-.tag{display:inline-flex;align-items:center;gap:4px;background:var(--ink);color:#fff;border-radius:5px;padding:2px 8px;font-size:12px}
-.tag button{background:none;border:none;color:#fff;cursor:pointer;font-size:14px;line-height:1;padding:0}
-.tags-input input{border:none;outline:none;background:none;font-family:var(--sans);font-size:13px;flex:1;min-width:100px;padding:2px}
-/* 分析图 */
-.bar-chart{display:flex;flex-direction:column;gap:10px}
-.bar-item{display:grid;grid-template-columns:130px 1fr 80px;align-items:center;gap:10px}
-.bar-label{font-size:12px;font-weight:600;color:var(--ink2);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bar-track{background:var(--line);border-radius:20px;height:18px;overflow:hidden}
+.tag{display:inline-flex;align-items:center;gap:3px;background:var(--ink);color:#fff;border-radius:4px;padding:2px 7px;font-size:11px}
+.tag button{background:none;border:none;color:#fff;cursor:pointer;font-size:13px;line-height:1;padding:0}
+.tags-input input{border:none;outline:none;background:none;font-size:12px;flex:1;min-width:80px;padding:2px}
+/* 分析横条图 */
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bar-item{display:grid;grid-template-columns:120px 1fr 90px;align-items:center;gap:8px}
+.bar-label{font-size:11px;font-weight:600;color:var(--ink2);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{background:var(--line);border-radius:20px;height:16px;overflow:hidden}
 .bar-fill{height:100%;border-radius:20px;transition:width .4s}
 .bar-val{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
-@media(max-width:520px){.bar-item{grid-template-columns:80px 1fr 60px}}
+@media(max-width:520px){.bar-item{grid-template-columns:80px 1fr 70px}}
+/* 收款提醒 */
+.unpaid-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:8px}
+.unpaid-row:last-child{border-bottom:none}
+.urgency-high{color:var(--red);font-weight:600}
+.urgency-med{color:var(--amber);font-weight:600}
 </style>
 </head>
 <body>
@@ -121,15 +134,10 @@ import{getFirestore,doc,setDoc,getDoc}from"https://www.gstatic.com/firebasejs/11
 import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 const FB={apiKey:"AIzaSyCL3lP6QmmOAYUS66VUbo5YnWl_xBBivts",authDomain:"vj-account.firebaseapp.com",projectId:"vj-account",storageBucket:"vj-account.firebasestorage.app",messagingSenderId:"274705581918",appId:"1:274705581918:web:7e308a2e1a7fe368e5f1cf"};
-const app=initializeApp(FB);
-const db=getFirestore(app);
-const auth=getAuth(app);
-const provider=new GoogleAuthProvider();
-
+const app=initializeApp(FB);const db=getFirestore(app);const auth=getAuth(app);const provider=new GoogleAuthProvider();
 const ANTHROPIC_KEY_LS="vj_anthropic_key";
 let ANTHROPIC_KEY=localStorage.getItem(ANTHROPIC_KEY_LS)||"";
 const MODEL="claude-sonnet-4-6";
-
 const CCY={AUD:{label:"澳币",symbol:"A$"},CNY:{label:"人民币",symbol:"¥"}};
 const DEFAULT_TYPES=["签证","学校","职评","雇主","猎头","上诉","咨询","其他"];
 const EXPENSE_CATS=["办公租金","工资薪酬","推荐人返佣","营销推广","政府/申请费","差旅","软件订阅","专业服务","其他"];
@@ -137,13 +145,14 @@ const INCOME_TYPES=["服务费","佣金","其他"];
 const SERVICE_SEED=["签证申请","学校申请","职业评估","雇主担保","猎头服务","上诉/复审","咨询服务","482 SBS","482 NOM","482 VISA","189 独立技术","190 州担保","PR 永居","学生签 500","配偶签 820/801","其他"];
 const COURSE_LEVELS=["Higher Education","VET","ELICOS","Foundation","School","Other"];
 const COMM_STATUS={awaiting_tuition:{label:"待付学费",color:"#8a90a0"},claimable:{label:"可申请",color:"#C8941E"},claimed:{label:"已申请",color:"#1B2A4A"},received:{label:"已收到",color:"#0E7C7B"},refunded:{label:"已退款",color:"#A14034"}};
-const DEFAULT_DATA={clients:[],transactions:[],offers:[],settings:{prefix:"C",nextSeq:1,clientTypes:DEFAULT_TYPES,serviceSeed:SERVICE_SEED}};
+const DEFAULT_DATA={clients:[],transactions:[],offers:[],settings:{prefix:"C",nextSeq:1,clientTypes:DEFAULT_TYPES,serviceSeed:SERVICE_SEED,unpaidFollowDays:30}};
 
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const today=()=>new Date().toISOString().slice(0,10);
 const addMonths=(s,n)=>{if(!s)return null;const d=new Date(s);if(isNaN(d))return null;d.setMonth(d.getMonth()+n);return d.toISOString().slice(0,10);};
 const fmt=(amt,ccy)=>{const s=(CCY[ccy]||{}).symbol||"";return s+Number(amt||0).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});};
 const esc=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const daysDiff=(d1,d2)=>Math.round((new Date(d1)-new Date(d2))/(1000*60*60*24));
 
 let S={user:null,data:JSON.parse(JSON.stringify(DEFAULT_DATA)),tab:"dash",year:new Date().getFullYear(),loading:true};
 
@@ -155,7 +164,11 @@ function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t
 function confirm2(msg){return new Promise(res=>{const ov=document.createElement("div");ov.className="ov";ov.innerHTML=`<div class="modal" style="max-width:400px"><div class="modal-h"><h3>确认操作</h3></div><div class="modal-b"><p style="font-size:14px;line-height:1.6">${esc(msg)}</p><div class="modal-f"><button class="btn" id="cno">取消</button><button class="btn danger" id="cyes">确定</button></div></div></div>`;document.body.appendChild(ov);ov.querySelector("#cno").onclick=()=>{ov.remove();res(false);};ov.querySelector("#cyes").onclick=()=>{ov.remove();res(true);};});}
 
 function inYear(d,y){if(y==="all")return true;if(!d)return false;return new Date(d).getFullYear()===Number(y);}
+function inMonth(d,ym){if(!d)return false;return d.slice(0,7)===ym;}
+function thisMonth(){return new Date().toISOString().slice(0,7);}
+function lastMonth(){const d=new Date();d.setMonth(d.getMonth()-1);return d.toISOString().slice(0,7);}
 function totalsByCcy(txs,y){const r={AUD:{income:0,expense:0},CNY:{income:0,expense:0}};txs.forEach(t=>{if(!inYear(t.date,y))return;const c=r[t.currency]||r.AUD;if(t.kind==="income")c.income+=Number(t.amount);else c.expense+=Number(t.amount);});return r;}
+function monthIncome(txs,ym,ccy){return txs.filter(t=>t.kind==="income"&&t.currency===ccy&&inMonth(t.date,ym)).reduce((s,t)=>s+Number(t.amount),0);}
 function clientName(id){const c=S.data.clients.find(c=>c.id===id);return c?`${c.name}（${c.code}）`:"—";}
 function buildCommissions(p){
   const ccy=p.currency||"AUD";const rate=Number(p.commissionRate)||0;const out=[];
@@ -167,6 +180,27 @@ function buildCommissions(p){
 }
 function getYears(){const s=new Set([new Date().getFullYear()]);S.data.transactions.forEach(t=>s.add(new Date(t.date).getFullYear()));return Array.from(s).sort((a,b)=>b-a);}
 
+/* 收款提醒逻辑：找有收入记录但没有最近付款的客户 */
+function getUnpaidClients(){
+  const followDays=S.data.settings.unpaidFollowDays||30;
+  const todayStr=today();
+  // 找所有曾有过「服务费」收入记录，但超过N天没有新收款的客户
+  const clientLastPayment={};
+  S.data.transactions.forEach(t=>{
+    if(t.kind!=="income"||!t.clientId)return;
+    if(!clientLastPayment[t.clientId]||t.date>clientLastPayment[t.clientId].date){
+      clientLastPayment[t.clientId]={date:t.date,amount:Number(t.amount),currency:t.currency,note:t.note||""};
+    }
+  });
+  // 找有「欠款」标记的记录（notes包含"未付"、"待收"等）
+  const unpaidTxs=S.data.transactions.filter(t=>t.kind==="income"&&t.unpaid===true);
+  return unpaidTxs.map(t=>{
+    const c=S.data.clients.find(x=>x.id===t.clientId);
+    const days=daysDiff(todayStr,t.date);
+    return{...t,client:c,daysPending:days};
+  }).filter(t=>t.client).sort((a,b)=>b.daysPending-a.daysPending);
+}
+
 function render(){
   const app=document.getElementById("app");if(!app)return;
   if(S.loading){app.innerHTML=`<div class="loading">载入中…</div>`;return;}
@@ -177,42 +211,144 @@ function render(){
   document.getElementById("sel-year")?.addEventListener("change",e=>{S.year=e.target.value==="all"?"all":Number(e.target.value);render();});
 }
 
-function renderLogin(){return`<div class="login-wrap"><div class="login-box"><div class="logo-big">VJ</div><h1>VJ Consulting & Education</h1><p>客户 · 记账 · 佣金 · 分析<br>数据存储在你的 Google 账号，多设备同步</p><button class="btn primary" style="padding:12px 28px;font-size:15px" id="btn-login">🔐 用 Google 账号登录</button></div></div>`;}
+function renderLogin(){return`<div class="login-wrap"><div class="login-box"><div class="logo-big">VJ</div><h1 style="font-size:22px;font-weight:600;margin-bottom:8px">VJ Consulting & Education</h1><p style="opacity:.7;margin-bottom:28px;line-height:1.6">客户 · 记账 · 佣金 · 分析<br>数据存储在你的 Google 账号，多设备同步</p><button class="btn primary" style="padding:12px 28px;font-size:15px" id="btn-login">🔐 用 Google 账号登录</button></div></div>`;}
 
 function renderShell(){
   const tabs=[["dash","📊 仪表盘"],["clients","👥 客户"],["ledger","📒 记账"],["comm","🎓 Offer/佣金"],["analytics","📈 分析"],["settings","⚙️ 设置"]];
   let content="";
   switch(S.tab){case"dash":content=renderDash();break;case"clients":content=renderClients();break;case"ledger":content=renderLedger();break;case"comm":content=renderComm();break;case"analytics":content=renderAnalytics();break;case"settings":content=renderSettings();break;}
-  return`<header class="topbar"><div class="brand"><span class="logo">VJ</span><div><h1>VJ Consulting & Education</h1><p>客户 · 记账 · 佣金 · 退款</p></div></div><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="yr"><span>年度</span><select id="sel-year">${["all",...getYears()].map(y=>`<option value="${y}"${S.year==y?" selected":""}>${y==="all"?"全部":y+" 年"}</option>`).join("")}</select></div><span class="user-info">${esc(S.user.displayName||S.user.email)}</span><button class="btn-logout" id="btn-logout">退出</button></div></header><nav class="tabs">${tabs.map(([id,label])=>`<button class="tab${S.tab===id?" on":""}" data-tab="${id}">${label}</button>`).join("")}</nav><main class="content">${content}</main>`;
+  return`<header class="topbar"><div class="brand"><span class="logo">VJ</span><div><h1>VJ Consulting & Education</h1><p>客户 · 记账 · 佣金</p></div></div><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><div class="yr"><select id="sel-year">${["all",...getYears()].map(y=>`<option value="${y}"${S.year==y?" selected":""}>${y==="all"?"全部":y+" 年"}</option>`).join("")}</select></div><span class="user-info">${esc(S.user.displayName||S.user.email)}</span><button class="btn-logout" id="btn-logout">退出</button></div></header><nav class="tabs">${tabs.map(([id,label])=>`<button class="tab${S.tab===id?" on":""}" data-tab="${id}">${label}</button>`).join("")}</nav><main class="content">${content}</main>`;
 }
 
-/* ===== 仪表盘 ===== */
+/* ===== 仪表盘（强化版）===== */
 function renderDash(){
   const t=totalsByCcy(S.data.transactions,S.year);
+  const tm=thisMonth();const lm=lastMonth();
+  const tmAUD=monthIncome(S.data.transactions,tm,"AUD");
+  const lmAUD=monthIncome(S.data.transactions,lm,"AUD");
+  const tmCNY=monthIncome(S.data.transactions,tm,"CNY");
+  const lmCNY=monthIncome(S.data.transactions,lm,"CNY");
+  const audDiff=lmAUD>0?((tmAUD-lmAUD)/lmAUD*100).toFixed(0):null;
+  const cnyDiff=lmCNY>0?((tmCNY-lmCNY)/lmCNY*100).toFixed(0):null;
+
+  // 最近6个月收入趋势
+  const months=[];for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);months.push(d.toISOString().slice(0,7));}
+  const monthData=months.map(m=>({m,v:monthIncome(S.data.transactions,m,"AUD")}));
+  const maxV=Math.max(1,...monthData.map(x=>x.v));
+
   const dueComms=S.data.offers.flatMap(o=>(o.commissions||[]).map(c=>({...c,offer:o}))).filter(c=>c.status==="claimable"||(c.status==="awaiting_tuition"&&c.claimableDate&&c.claimableDate<=addMonths(today(),1))).sort((a,b)=>(a.claimableDate||"").localeCompare(b.claimableDate||""));
+  const unpaid=getUnpaidClients();
+
+  // 推荐人排行（前3）
+  const refs=referrerStats().filter(r=>r.name!=="无推荐人"&&r.AUD>0).slice(0,3);
+
+  // 本月新增客户
+  const newClients=S.data.clients.filter(c=>c.createdAt&&c.createdAt.slice(0,7)===tm).length;
+
   return`
+<!-- 核心KPI -->
 <div class="grid4">
-  <div class="kpi" style="--ac:#1B2A4A"><p class="kpi-t">澳币净收入</p><p class="kpi-m">${fmt(t.AUD.income-t.AUD.expense,"AUD")}</p><p class="kpi-s">收${fmt(t.AUD.income,"AUD")} · 支${fmt(t.AUD.expense,"AUD")}</p></div>
-  <div class="kpi" style="--ac:#0E7C7B"><p class="kpi-t">人民币净收入</p><p class="kpi-m">${fmt(t.CNY.income-t.CNY.expense,"CNY")}</p><p class="kpi-s">收${fmt(t.CNY.income,"CNY")} · 支${fmt(t.CNY.expense,"CNY")}</p></div>
-  <div class="kpi" style="--ac:#C8941E"><p class="kpi-t">客户总数</p><p class="kpi-m">${S.data.clients.length}</p><p class="kpi-s">Offer ${S.data.offers.length} 份</p></div>
-  <div class="kpi" style="--ac:#A14034"><p class="kpi-t">待claim佣金</p><p class="kpi-m">${dueComms.length}</p><p class="kpi-s">点下方处理</p></div>
+  <div class="kpi" style="--ac:#1B2A4A">
+    <p class="kpi-t">本月澳币收入</p>
+    <p class="kpi-m">${fmt(tmAUD,"AUD")}</p>
+    ${audDiff!==null?`<p class="kpi-trend ${Number(audDiff)>=0?"trend-up":"trend-down"}">${Number(audDiff)>=0?"↑":"↓"} ${Math.abs(audDiff)}% 较上月</p>`:`<p class="kpi-s">上月 ${fmt(lmAUD,"AUD")}</p>`}
+  </div>
+  <div class="kpi" style="--ac:#0E7C7B">
+    <p class="kpi-t">本月人民币收入</p>
+    <p class="kpi-m">${fmt(tmCNY,"CNY")}</p>
+    ${cnyDiff!==null?`<p class="kpi-trend ${Number(cnyDiff)>=0?"trend-up":"trend-down"}">${Number(cnyDiff)>=0?"↑":"↓"} ${Math.abs(cnyDiff)}% 较上月</p>`:`<p class="kpi-s">上月 ${fmt(lmCNY,"CNY")}</p>`}
+  </div>
+  <div class="kpi" style="--ac:#C8941E">
+    <p class="kpi-t">客户总数</p>
+    <p class="kpi-m">${S.data.clients.length}</p>
+    <p class="kpi-s">本月新增 ${newClients} 个</p>
+  </div>
+  <div class="kpi" style="--ac:#A14034">
+    <p class="kpi-t">待处理佣金</p>
+    <p class="kpi-m">${dueComms.length}</p>
+    <p class="kpi-s">点下方查看</p>
+  </div>
 </div>
-<section class="card">
-  <div class="card-h"><h2>🔔 佣金提醒</h2><button class="link" onclick="setTab('comm')">全部 →</button></div>
-  ${dueComms.length===0?`<p class="empty">暂无需要处理的佣金</p>`:dueComms.map(c=>`<div class="row"><div><strong>${esc(c.offer.institution)}</strong><p class="dim sm">${esc(clientName(c.offer.clientId))} · ${esc(c.label)}</p></div><div class="row-r"><span class="pill" style="background:${COMM_STATUS[c.status].color}22;color:${COMM_STATUS[c.status].color}">${COMM_STATUS[c.status].label}</span><span class="amt">${fmt(c.commissionAmount,c.currency)}</span></div></div>`).join("")}
-</section>
+
+<!-- 6个月趋势 + 推荐人排行 -->
+<div class="grid2">
+  <section class="card">
+    <div class="card-h"><h2>📈 近6个月澳币收入</h2></div>
+    <div style="display:flex;align-items:flex-end;gap:4px;height:60px;margin-bottom:6px">
+      ${monthData.map((x,i)=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="width:100%;background:${x.m===tm?"var(--ink)":"var(--line)"};border-radius:4px 4px 0 0;height:${Math.max(4,(x.v/maxV*52)).toFixed(0)}px;transition:height .3s"></div>
+      </div>`).join("")}
+    </div>
+    <div style="display:flex;gap:4px">
+      ${monthData.map(x=>`<div style="flex:1;text-align:center;font-size:9px;color:var(--muted)">${x.m.slice(5)}月</div>`).join("")}
+    </div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line)">
+      <div style="display:flex;justify-content:space-between;font-size:12px">
+        <span class="dim">年度澳币总收入</span><strong>${fmt(t.AUD.income,"AUD")}</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:4px">
+        <span class="dim">年度人民币总收入</span><strong>${fmt(t.CNY.income,"CNY")}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><h2>🏆 推荐人排行</h2><button class="link" onclick="setTab('analytics')">全部 →</button></div>
+    ${refs.length===0?`<p class="empty">暂无数据</p>`:`
+    <div style="display:flex;flex-direction:column;gap:8px">
+    ${refs.map((r,i)=>{
+      const medals=["🥇","🥈","🥉"];
+      return`<div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px;flex-shrink:0">${medals[i]||""}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(r.name)}</div>
+          <div style="font-size:11px;color:var(--muted)">${r.clients}个客户</div>
+        </div>
+        <strong style="font-size:13px;font-variant-numeric:tabular-nums;flex-shrink:0">${fmt(r.AUD,"AUD")}</strong>
+      </div>`;
+    }).join("")}
+    </div>`}
+  </section>
+</div>
+
+<!-- 佣金提醒 + 收款提醒 -->
+<div class="grid2">
+  <section class="card">
+    <div class="card-h"><h2>🔔 佣金提醒</h2><button class="link" onclick="setTab('comm')">全部 →</button></div>
+    ${dueComms.length===0?`<p class="empty">暂无需要处理的佣金</p>`:dueComms.slice(0,5).map(c=>`
+    <div class="row">
+      <div style="min-width:0;flex:1"><strong style="font-size:13px">${esc(c.offer.institution)}</strong><p class="dim xs">${esc(clientName(c.offer.clientId))} · ${c.claimableDate||"待定"}</p></div>
+      <div class="row-r"><span class="pill" style="background:${COMM_STATUS[c.status].color}22;color:${COMM_STATUS[c.status].color}">${COMM_STATUS[c.status].label}</span><span class="amt sm">${fmt(c.commissionAmount,c.currency)}</span></div>
+    </div>`).join("")}
+  </section>
+
+  <section class="card">
+    <div class="card-h"><h2>💰 收款提醒</h2><button class="link" onclick="setTab('ledger')">记账 →</button></div>
+    ${unpaid.length===0?`<p class="empty">暂无未收款记录<br><span class="xs dim">在记账时勾选「标记未收款」</span></p>`:unpaid.slice(0,5).map(u=>`
+    <div class="unpaid-row">
+      <div style="min-width:0;flex:1"><strong style="font-size:13px">${esc(u.client?.name||"—")}</strong><p class="dim xs">${esc(u.note||"—")}</p></div>
+      <div class="row-r">
+        <span class="${u.daysPending>60?"urgency-high":u.daysPending>30?"urgency-med":"dim"} xs">${u.daysPending}天</span>
+        <span class="amt sm">${fmt(u.amount,u.currency)}</span>
+        <button class="btn sm primary" onclick="markPaid('${u.id}')">已收</button>
+      </div>
+    </div>`).join("")}
+    <button class="btn ghost sm" style="margin-top:8px;width:100%" onclick="openTxForm(null,true)">+ 记录未收款项</button>
+  </section>
+</div>
+
 <section class="card">
   <div class="card-h"><h2>✨ AI 经营建议</h2><button class="btn primary sm" onclick="runAdvice()">生成建议</button></div>
   <div id="advice-box"><p class="empty">基于你的收支、推荐人、业务数据给出建议</p></div>
 </section>`;
 }
 
-/* ===== 客户（含服务项目标签）===== */
+/* ===== 客户 ===== */
 function renderClients(q=""){
-  const list=S.data.clients.filter(c=>!q||c.name.includes(q)||c.code.toLowerCase().includes(q.toLowerCase())||(c.referrer||"").includes(q));
+  const list=S.data.clients.filter(c=>!q||c.name.includes(q)||c.code.toLowerCase().includes(q.toLowerCase())||(c.referrer||"").includes(q)||(c.services||[]).some(s=>s.includes(q)));
   return`
 <div class="bar">
-  <div class="srch">🔍<input id="client-q" placeholder="搜索姓名/客户号/推荐人" value="${esc(q)}" oninput="rerenderClients(this.value)"/></div>
+  <div class="srch">🔍<input id="client-q" placeholder="搜索姓名/客户号/推荐人/服务" value="${esc(q)}" oninput="rerenderClients(this.value)"/></div>
   <button class="btn primary" onclick="openClientForm()">+ 新增客户</button>
 </div>
 <div class="card no-pad"><table class="tbl">
@@ -221,7 +357,7 @@ function renderClients(q=""){
   const inc=S.data.transactions.filter(t=>t.clientId===c.id&&t.kind==="income");
   const aud=inc.filter(t=>t.currency==="AUD").reduce((s,t)=>s+Number(t.amount),0);
   const cny=inc.filter(t=>t.currency==="CNY").reduce((s,t)=>s+Number(t.amount),0);
-  const svcs=(c.services||[]).slice(0,3).map(s=>`<span style="background:#0E7C7B18;color:#0E7C7B;border-radius:4px;padding:1px 6px;font-size:11px;font-weight:600;white-space:nowrap">${esc(s)}</span>`).join(" ");
+  const svcs=(c.services||[]).slice(0,3).map(s=>`<span style="background:#0E7C7B18;color:#0E7C7B;border-radius:4px;padding:1px 5px;font-size:10px;font-weight:600;white-space:nowrap">${esc(s)}</span>`).join(" ");
   return`<tr><td><span class="code">${esc(c.code)}</span></td><td><strong>${esc(c.name)}</strong></td><td><span class="pill" style="background:#1B2A4A22;color:#1B2A4A">${esc(c.type)}</span></td><td>${svcs||`<span class="dim">—</span>`}</td><td>${esc(c.referrer||"—")}</td><td class="num">${aud?fmt(aud,"AUD"):""}${aud&&cny?" / ":""}${cny?fmt(cny,"CNY"):""}${!aud&&!cny?"—":""}</td><td class="act"><button class="icon-btn" onclick="openClientForm('${c.id}')">✏️</button><button class="icon-btn" onclick="delClient('${c.id}')">🗑</button></td></tr>`;
 }).join("")}</tbody>
 </table></div><div id="client-form-area"></div>`;
@@ -230,19 +366,21 @@ function renderClients(q=""){
 /* ===== 记账 ===== */
 function renderLedger(){
   const list=S.data.transactions.filter(t=>inYear(t.date,S.year)).sort((a,b)=>b.date.localeCompare(a.date));
+  const unpaidCount=S.data.transactions.filter(t=>t.unpaid).length;
   return`
-<div class="bar"><div></div><button class="btn primary" onclick="openTxForm()">+ 新增记账</button></div>
+<div class="bar"><div>${unpaidCount>0?`<span style="background:#C8941E22;color:#C8941E;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600">⚠️ ${unpaidCount} 笔未收款</span>`:""}</div><button class="btn primary" onclick="openTxForm()">+ 新增记账</button></div>
 <div class="card no-pad"><table class="tbl">
-<thead><tr><th>日期</th><th>类型</th><th>客户</th><th>明细</th><th>币种</th><th>金额</th><th></th></tr></thead>
+<thead><tr><th>日期</th><th>类型</th><th>客户</th><th>明细</th><th>状态</th><th>金额</th><th></th></tr></thead>
 <tbody>${list.length===0?`<tr><td colspan="7" class="empty">本年度暂无记账</td></tr>`:list.map(t=>`
-<tr class="${t.isRefund?"rf":""}">
-<td class="dim">${t.date}</td>
+<tr class="${t.isRefund?"rf":""}${t.unpaid?" style='background:#C8941E08'":''}">
+<td class="dim sm">${t.date}</td>
 <td>${t.kind==="income"?`<span class="pill" style="background:#0E7C7B22;color:#0E7C7B">↑ ${esc(t.incomeType||"收入")}</span>`:`<span class="pill" style="background:#A1403422;color:#A14034">↓ ${esc(t.category||"支出")}</span>`}</td>
-<td>${t.clientId?esc(clientName(t.clientId)):"—"}</td>
-<td>${esc(t.note||"—")}</td>
-<td class="dim">${CCY[t.currency]?.label||t.currency}</td>
+<td class="sm">${t.clientId?esc(clientName(t.clientId)):"—"}</td>
+<td class="sm">${esc(t.note||"—")}</td>
+<td>${t.unpaid?`<span class="pill" style="background:#C8941E22;color:#C8941E">未收款</span>`:`<span class="pill" style="background:#0E7C7B22;color:#0E7C7B">已收</span>`}</td>
 <td class="num ${t.kind==="income"?"pos":"neg"}">${t.kind==="income"?"+":"−"}${fmt(t.amount,t.currency)}</td>
-<td class="act"><button class="icon-btn" onclick="openTxForm('${t.id}')">✏️</button><button class="icon-btn" onclick="delTx('${t.id}')">🗑</button></td>
+<td class="act">${t.unpaid?`<button class="btn sm primary" onclick="markPaid('${t.id}')">已收</button>`:""}
+<button class="icon-btn" onclick="openTxForm('${t.id}')">✏️</button><button class="icon-btn" onclick="delTx('${t.id}')">🗑</button></td>
 </tr>`).join("")}</tbody>
 </table></div><div id="tx-form-area"></div>`;
 }
@@ -253,28 +391,28 @@ function renderComm(){
 <section class="card">
   <div class="card-h"><h2>✨ 粘贴Offer内容，AI自动识别</h2></div>
   <textarea id="offer-text" class="ta" placeholder="把Offer内容粘贴到这里…"></textarea>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn primary" onclick="parseOffer()">✨ AI 识别</button>
     <button class="btn ghost" onclick="openOfferJSON()">📋 粘贴JSON导入</button>
     <button class="btn ghost" onclick="openOfferForm(null)">手动新增</button>
   </div>
 </section>
 ${S.data.offers.length===0?`<p class="empty card">还没有Offer</p>`:S.data.offers.map(o=>`
-<section class="card" style="margin-bottom:14px">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
-    <div><h3 style="font-size:15px;margin:0 0 4px;font-weight:600">${esc(o.institution||"未命名院校")}</h3>
-    <p class="dim">${esc(clientName(o.clientId))} · ${esc(o.course||"—")} · <span class="pill" style="background:#1B2A4A22;color:#1B2A4A">${esc(o.courseLevel)}</span></p></div>
-    <div style="display:flex;gap:6px"><button class="icon-btn" onclick="openOfferForm('${o.id}')">✏️</button><button class="icon-btn" onclick="delOffer('${o.id}')">🗑</button></div>
+<section class="card" style="margin-bottom:12px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+    <div><h3 style="font-size:14px;margin:0 0 3px;font-weight:600">${esc(o.institution||"未命名院校")}</h3>
+    <p class="dim sm">${esc(clientName(o.clientId))} · ${esc(o.course||"—")} · <span class="pill" style="background:#1B2A4A22;color:#1B2A4A">${esc(o.courseLevel)}</span></p></div>
+    <div style="display:flex;gap:5px"><button class="icon-btn" onclick="openOfferForm('${o.id}')">✏️</button><button class="icon-btn" onclick="delOffer('${o.id}')">🗑</button></div>
   </div>
-  <div style="margin-top:12px;border-top:1px solid #E6E1D6;padding-top:8px">
+  <div style="margin-top:10px;border-top:1px solid #E6E1D6;padding-top:8px">
   ${(o.commissions||[]).map(c=>`
     <div class="comm-row">
-      <div><strong>${esc(c.label)}</strong><br><span class="dim sm">基数 ${fmt(c.basisAmount,c.currency)} × ${c.rate||0}% = <b>${fmt(c.commissionAmount,c.currency)}</b> · 可申请 ${c.claimableDate||"待定"}</span></div>
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <div><strong class="sm">${esc(c.label)}</strong><br><span class="dim xs">基数 ${fmt(c.basisAmount,c.currency)} × ${c.rate||0}% = <b>${fmt(c.commissionAmount,c.currency)}</b> · ${c.claimableDate||"待定"}</span></div>
+      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
         <span class="pill" style="background:${COMM_STATUS[c.status]?.color||"#888"}22;color:${COMM_STATUS[c.status]?.color||"#888"}">${COMM_STATUS[c.status]?.label||c.status}</span>
         ${c.status==="awaiting_tuition"?`<button class="btn sm" onclick="moveComm('${o.id}','${c.id}','paid')">学费已付</button>`:""}
-        ${c.status==="claimable"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','claimed')">标记已申请</button>`:""}
-        ${c.status==="claimed"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','received')">佣金已收到</button>`:""}
+        ${c.status==="claimable"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','claimed')">已申请</button>`:""}
+        ${c.status==="claimed"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','received')">已收到</button>`:""}
         ${c.status!=="refunded"?`<button class="icon-btn" onclick="moveComm('${o.id}','${c.id}','refund')">↩</button>`:""}
       </div>
     </div>`).join("")}
@@ -286,29 +424,33 @@ ${S.data.offers.length===0?`<p class="empty card">还没有Offer</p>`:S.data.off
 /* ===== 分析（横条图）===== */
 function renderAnalytics(){
   const refs=referrerStats();const types=typeRevenue();const svcs=serviceStats();
-  const maxRef=Math.max(1,...refs.map(r=>r.AUD+r.CNY));
+  const maxRef=Math.max(1,...refs.map(r=>r.AUD));
   const maxType=Math.max(1,...types.map(t=>t.AUD));
   const maxSvc=Math.max(1,...svcs.map(s=>s.count));
+  // 月度收入表
+  const months=[];for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);months.push(d.toISOString().slice(0,7));}
+  const monthRows=months.map(m=>({m,AUD:monthIncome(S.data.transactions,m,"AUD"),CNY:monthIncome(S.data.transactions,m,"CNY")}));
   return`<div class="grid2">
-
 <section class="card span2">
   <div class="card-h"><h2>📊 服务项目分布</h2><span class="dim sm">共${svcs.reduce((s,x)=>s+x.count,0)}项</span></div>
   ${svcs.length===0?`<p class="empty">暂无数据，去「客户」页给客户添加服务项目标签</p>`:`<div class="bar-chart">${svcs.map(s=>`<div class="bar-item"><span class="bar-label">${esc(s.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${(s.count/maxSvc*100).toFixed(1)}%;background:linear-gradient(90deg,var(--green),var(--ink))"></div></div><span class="bar-val">${s.count}个</span></div>`).join("")}</div>`}
 </section>
-
 <section class="card">
-  <div class="card-h"><h2>👥 推荐人表现</h2></div>
-  ${refs.length===0?`<p class="empty">暂无数据</p>`:`<div class="bar-chart">${refs.map(r=>`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:12px;font-weight:600">${esc(r.name)}</span><span class="dim sm">${r.clients}客户</span></div>${r.AUD?`<div class="bar-item" style="grid-template-columns:1fr 60px"><div class="bar-track"><div class="bar-fill" style="width:${(r.AUD/maxRef*100).toFixed(1)}%;background:var(--ink)"></div></div><span class="bar-val" style="font-size:11px">${fmt(r.AUD,"AUD")}</span></div>`:""}</div>`).join("")}</div>`}
+  <div class="card-h"><h2>🏆 推荐人收入排行(AUD)</h2></div>
+  ${refs.filter(r=>r.AUD>0).length===0?`<p class="empty">暂无数据</p>`:`<div class="bar-chart">${refs.filter(r=>r.AUD>0).map(r=>`<div class="bar-item"><span class="bar-label">${esc(r.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${(r.AUD/maxRef*100).toFixed(1)}%;background:var(--ink)"></div></div><span class="bar-val">${fmt(r.AUD,"AUD")}</span></div>`).join("")}</div>`}
 </section>
-
 <section class="card">
   <div class="card-h"><h2>💼 业务方向收入(AUD)</h2></div>
-  ${types.length===0?`<p class="empty">暂无数据</p>`:`<div class="bar-chart">${types.map(t=>`<div class="bar-item"><span class="bar-label">${esc(t.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${(t.AUD/maxType*100).toFixed(1)}%;background:var(--amber)"></div></div><span class="bar-val">${fmt(t.AUD,"AUD")}</span></div>`).join("")}</div>`}
+  ${types.filter(t=>t.AUD>0).length===0?`<p class="empty">暂无数据</p>`:`<div class="bar-chart">${types.filter(t=>t.AUD>0).map(t=>`<div class="bar-item"><span class="bar-label">${esc(t.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${(t.AUD/maxType*100).toFixed(1)}%;background:var(--amber)"></div></div><span class="bar-val">${fmt(t.AUD,"AUD")}</span></div>`).join("")}</div>`}
 </section>
-
+<section class="card span2">
+  <div class="card-h"><h2>📅 近6个月收入明细</h2></div>
+  <table class="tbl mini"><thead><tr><th>月份</th><th class="num">澳币收入</th><th class="num">人民币收入</th></tr></thead>
+  <tbody>${monthRows.map(r=>`<tr><td>${r.m}</td><td class="num pos">${r.AUD?fmt(r.AUD,"AUD"):"—"}</td><td class="num" style="color:var(--green)">${r.CNY?fmt(r.CNY,"CNY"):"—"}</td></tr>`).join("")}</tbody></table>
+</section>
 </div>`;
 }
-function referrerStats(){const map={};S.data.clients.forEach(c=>{const r=c.referrer||"无推荐人";if(!map[r])map[r]={name:r,clients:0,AUD:0,CNY:0};map[r].clients++;});S.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,S.year))return;const c=S.data.clients.find(c=>c.id===t.clientId);const r=c?(c.referrer||"无推荐人"):"无关联";if(!map[r])map[r]={name:r,clients:0,AUD:0,CNY:0};map[r][t.currency]+=Number(t.amount);});return Object.values(map).sort((a,b)=>(b.AUD+b.CNY)-(a.AUD+a.CNY));}
+function referrerStats(){const map={};S.data.clients.forEach(c=>{const r=c.referrer||"无推荐人";if(!map[r])map[r]={name:r,clients:0,AUD:0,CNY:0};map[r].clients++;});S.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,S.year))return;const c=S.data.clients.find(c=>c.id===t.clientId);const r=c?(c.referrer||"无推荐人"):"无关联";if(!map[r])map[r]={name:r,clients:0,AUD:0,CNY:0};map[r][t.currency]+=Number(t.amount);});return Object.values(map).sort((a,b)=>b.AUD-a.AUD);}
 function typeRevenue(){const map={};S.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,S.year))return;const c=S.data.clients.find(c=>c.id===t.clientId);const type=c?c.type:"未分类";if(!map[type])map[type]={name:type,AUD:0,CNY:0};map[type][t.currency]+=Number(t.amount);});return Object.values(map).sort((a,b)=>b.AUD-a.AUD);}
 function serviceStats(){const m={};S.data.clients.forEach(c=>{(c.services||[]).forEach(s=>{m[s]=(m[s]||0)+1;});});return Object.entries(m).map(([name,count])=>({name,count})).sort((a,b)=>b.count-a.count);}
 
@@ -332,7 +474,7 @@ function renderSettings(){
 </section>
 <section class="card span2">
   <div class="card-h"><h2>🤖 Anthropic API Key（AI功能）</h2></div>
-  <p class="dim sm" style="margin-bottom:10px">AI识别Offer需要此Key。去 console.anthropic.com 注册获取。</p>
+  <p class="dim sm" style="margin-bottom:8px">AI识别Offer和AI经营建议需要此Key。去 console.anthropic.com 注册获取。</p>
   <div class="fld"><span class="fld-l">API Key</span><input id="api-key-input" type="password" value="${esc(ANTHROPIC_KEY)}" placeholder="sk-ant-..."/></div>
   <button class="btn primary" onclick="saveApiKey()">保存</button>
 </section>
@@ -342,22 +484,25 @@ function renderSettings(){
 /* ===== 全局函数 ===== */
 window.setTab=t=>{S.tab=t;render();};
 window.rerenderClients=q=>{document.querySelector(".content").innerHTML=renderClients(q);};
+window.markPaid=id=>update(d=>{const t=d.transactions.find(x=>x.id===id);if(t)t.unpaid=false;return d;});
+
 window.runAdvice=async()=>{
   const box=document.getElementById("advice-box");if(box)box.innerHTML=`<p class="dim">分析中…</p>`;
   if(!ANTHROPIC_KEY){if(box)box.innerHTML=`<p class="dim">请先在「设置」里填入 API Key</p>`;return;}
   const t=totalsByCcy(S.data.transactions,S.year);
+  const refs=referrerStats().slice(0,5);
   try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_KEY,"anthropic-version":"2023-06-01"},body:JSON.stringify({model:MODEL,max_tokens:1000,messages:[{role:"user",content:"你是澳洲移民/留学事务所经营顾问。用简体中文给出4-6条具体可执行建议。直接给要点。\n\n数据:"+JSON.stringify({澳币收入:t.AUD.income,澳币支出:t.AUD.expense,人民币收入:t.CNY.income,客户数:S.data.clients.length})}]})});
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_KEY,"anthropic-version":"2023-06-01"},body:JSON.stringify({model:MODEL,max_tokens:1000,messages:[{role:"user",content:"你是澳洲移民/留学事务所经营顾问。用简体中文给出4-6条具体可执行建议。直接给要点。\n\n数据:"+JSON.stringify({澳币收入:t.AUD.income,澳币支出:t.AUD.expense,人民币收入:t.CNY.income,客户数:S.data.clients.length,推荐人:refs})}]})});
     const j=await res.json();const txt=(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("");
-    if(box)box.innerHTML=`<div class="advice">${txt.split("\n").map(l=>`<p>${esc(l)}</p>`).join("")}</div>`;
+    if(box)box.innerHTML=`<div style="font-size:13px;line-height:1.7">${txt.split("\n").map(l=>`<p style="margin-bottom:4px">${esc(l)}</p>`).join("")}</div>`;
   }catch(e){if(box)box.innerHTML=`<p class="dim">生成失败</p>`;}
 };
 
-/* 客户表单（含标签输入） */
+/* 客户表单 */
 window.openClientForm=id=>{
   const c=id?S.data.clients.find(x=>x.id===id):{name:"",type:DEFAULT_TYPES[0],referrer:"",phone:"",email:"",notes:"",services:[]};
   const area=document.getElementById("client-form-area");if(!area)return;
-  const svcs=JSON.parse(JSON.stringify(c.services||[]));
+  window._editSvcs=JSON.parse(JSON.stringify(c.services||[]));
   area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeClientForm()"><div class="modal" onclick="event.stopPropagation()">
   <div class="modal-h"><h3>${id?"编辑客户":"新增客户"}</h3><button class="icon-btn" onclick="closeClientForm()">✕</button></div>
   <div class="modal-b">
@@ -371,16 +516,15 @@ window.openClientForm=id=>{
     </div>
     <div class="fld"><span class="fld-l">服务项目 <em style="font-weight:400;color:var(--muted)">(回车添加，点×删除)</em></span>
       <div class="tags-input" id="tags-wrap" onclick="document.getElementById('tag-inp').focus()">
-        ${svcs.map(s=>`<span class="tag">${esc(s)}<button onclick="removeTag('${esc(s)}')">×</button></span>`).join("")}
-        <input id="tag-inp" placeholder="输入后回车…" style="border:none;background:none;outline:none;font-size:13px;flex:1;min-width:80px;padding:2px" onkeydown="addTag(event)"/>
+        ${window._editSvcs.map(s=>`<span class="tag">${esc(s)}<button onclick="removeTag('${esc(s)}')">×</button></span>`).join("")}
+        <input id="tag-inp" placeholder="输入后回车…" onkeydown="addTag(event)"/>
       </div>
     </div>
     <div class="modal-f"><button class="btn" onclick="closeClientForm()">取消</button><button class="btn primary" onclick="saveClient('${id||""}')">保存</button></div>
   </div></div></div>`;
-  window._editSvcs=svcs;
 };
 window.addTag=e=>{if(e.key!=="Enter"&&e.key!==",")return;e.preventDefault();const v=e.target.value.trim();if(!v||window._editSvcs.includes(v))return;window._editSvcs.push(v);e.target.value="";const wrap=document.getElementById("tags-wrap");const inp=document.getElementById("tag-inp");const span=document.createElement("span");span.className="tag";span.innerHTML=`${esc(v)}<button onclick="removeTag('${esc(v)}')">×</button>`;wrap.insertBefore(span,inp);};
-window.removeTag=v=>{window._editSvcs=window._editSvcs.filter(x=>x!==v);const wrap=document.getElementById("tags-wrap");const inp=document.getElementById("tag-inp");wrap.querySelectorAll(".tag").forEach(el=>{if(el.textContent.replace("×","").trim()===v)el.remove();});};
+window.removeTag=v=>{window._editSvcs=window._editSvcs.filter(x=>x!==v);document.getElementById("tags-wrap")?.querySelectorAll(".tag").forEach(el=>{if(el.textContent.replace("×","").trim()===v)el.remove();});};
 window.closeClientForm=()=>{const a=document.getElementById("client-form-area");if(a)a.innerHTML="";delete window._editSvcs;};
 window.saveClient=id=>{
   const name=document.getElementById("cf-name")?.value?.trim();if(!name){toast("姓名不能为空");return;}
@@ -390,9 +534,9 @@ window.saveClient=id=>{
 };
 window.delClient=async id=>{if(await confirm2("删除该客户？"))update(d=>{d.clients=d.clients.filter(x=>x.id!==id);return d;});};
 
-/* 记账表单 */
-window.openTxForm=id=>{
-  const tx=id?S.data.transactions.find(x=>x.id===id):{kind:"income",incomeType:"服务费",category:EXPENSE_CATS[0],currency:"AUD",amount:"",date:today(),clientId:"",note:""};
+/* 记账表单（含未收款标记）*/
+window.openTxForm=(id,forceUnpaid=false)=>{
+  const tx=id?S.data.transactions.find(x=>x.id===id):{kind:"income",incomeType:"服务费",category:EXPENSE_CATS[0],currency:"AUD",amount:"",date:today(),clientId:"",note:"",unpaid:forceUnpaid};
   const area=document.getElementById("tx-form-area");if(!area)return;
   window._txKind=tx.kind||"income";
   area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeTxForm()"><div class="modal" onclick="event.stopPropagation()">
@@ -407,37 +551,37 @@ window.openTxForm=id=>{
       <div class="fld"><span class="fld-l">日期</span><input type="date" id="tx-date" value="${tx.date||today()}"/></div>
       <div class="fld"><span class="fld-l">说明</span><input id="tx-note" value="${esc(tx.note||"")}"/></div>
     </div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;margin-bottom:4px">
+      <input type="checkbox" id="tx-unpaid" ${tx.unpaid?"checked":""} style="width:auto"/>
+      <span>⚠️ 标记为<strong>未收款</strong>（客户还没付，先记录）</span>
+    </label>
     <div class="modal-f"><button class="btn" onclick="closeTxForm()">取消</button><button class="btn primary" onclick="saveTx('${id||""}')">保存</button></div>
   </div></div></div>`;
 };
 window.closeTxForm=()=>{const a=document.getElementById("tx-form-area");if(a)a.innerHTML="";};
 window.setTxKind=k=>{window._txKind=k;const f=document.getElementById("tx-type-field");if(!f)return;if(k==="income")f.innerHTML=`<span class="fld-l">收入类型</span><select id="tx-itype">${INCOME_TYPES.map(x=>`<option>${x}</option>`).join("")}</select>`;else f.innerHTML=`<span class="fld-l">支出分类</span><select id="tx-cat">${EXPENSE_CATS.map(x=>`<option>${x}</option>`).join("")}</select>`;document.querySelectorAll(".seg button").forEach((b,i)=>b.className=((k==="income"&&i===0)||(k==="expense"&&i===1))?"on":"");};
-window.saveTx=id=>{const kind=window._txKind||"income";const amt=Number(document.getElementById("tx-amt")?.value);if(!amt){toast("金额不能为空");return;}const t={id:id||uid(),kind,incomeType:kind==="income"?(document.getElementById("tx-itype")?.value||"服务费"):null,category:kind==="expense"?(document.getElementById("tx-cat")?.value||EXPENSE_CATS[0]):null,currency:document.getElementById("tx-ccy")?.value||"AUD",amount:amt,date:document.getElementById("tx-date")?.value||today(),clientId:document.getElementById("tx-client")?.value||"",note:document.getElementById("tx-note")?.value||""};update(d=>{if(id){const i=d.transactions.findIndex(x=>x.id===id);if(i>=0)d.transactions[i]=t;}else d.transactions.push(t);return d;});delete window._txKind;};
+window.saveTx=id=>{
+  const kind=window._txKind||"income";const amt=Number(document.getElementById("tx-amt")?.value);if(!amt){toast("金额不能为空");return;}
+  const t={id:id||uid(),kind,incomeType:kind==="income"?(document.getElementById("tx-itype")?.value||"服务费"):null,category:kind==="expense"?(document.getElementById("tx-cat")?.value||EXPENSE_CATS[0]):null,currency:document.getElementById("tx-ccy")?.value||"AUD",amount:amt,date:document.getElementById("tx-date")?.value||today(),clientId:document.getElementById("tx-client")?.value||"",note:document.getElementById("tx-note")?.value||"",unpaid:document.getElementById("tx-unpaid")?.checked||false};
+  update(d=>{if(id){const i=d.transactions.findIndex(x=>x.id===id);if(i>=0)d.transactions[i]=t;}else d.transactions.push(t);return d;});delete window._txKind;
+};
 window.delTx=async id=>{if(await confirm2("删除该笔记录？"))update(d=>{d.transactions=d.transactions.filter(x=>x.id!==id);return d;});};
 
-/* Offer JSON导入 */
+/* Offer */
 window.openOfferJSON=()=>{
   const area=document.getElementById("offer-form-area");if(!area)return;
   area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeOfferForm()"><div class="modal" onclick="event.stopPropagation()">
   <div class="modal-h"><h3>📋 粘贴JSON导入Offer</h3><button class="icon-btn" onclick="closeOfferForm()">✕</button></div>
   <div class="modal-b">
-    <p class="dim sm" style="margin-bottom:10px">把Claude给你解析的Offer JSON粘贴到下面，自动填好所有字段。</p>
-    <textarea id="offer-json-input" class="ta" style="min-height:180px;font-family:monospace;font-size:12px" placeholder='{"studentName":"Liu Danhui","institution":"AIA",...}'></textarea>
+    <p class="dim sm" style="margin-bottom:8px">把Claude给你解析的Offer JSON粘贴到下面。</p>
+    <textarea id="offer-json-input" class="ta" style="min-height:160px;font-family:monospace;font-size:11px" placeholder='{"studentName":"Liu Danhui","institution":"AIA",...}'></textarea>
     <div class="modal-f"><button class="btn" onclick="closeOfferForm()">取消</button><button class="btn primary" onclick="importOfferJSON()">导入</button></div>
   </div></div></div>`;
 };
 window.importOfferJSON=()=>{
   const txt=document.getElementById("offer-json-input")?.value?.trim();if(!txt){toast("请先粘贴JSON");return;}
-  try{
-    const p=JSON.parse(txt);
-    let clientId=p.clientId||"";
-    if(!clientId&&p.studentName){const n=p.studentName.replace(/\s/g,"");const m=S.data.clients.find(c=>c.name&&(c.name.includes(n)||n.includes(c.name)));if(m)clientId=m.id;}
-    closeOfferForm();
-    openOfferForm(null,{...p,id:null,clientId,currency:p.currency==="CNY"?"CNY":"AUD",commissions:p.commissions&&p.commissions.length?p.commissions:buildCommissions(p)});
-  }catch(e){toast("JSON格式错误："+e.message);}
+  try{const p=JSON.parse(txt);let clientId=p.clientId||"";if(!clientId&&p.studentName){const n=p.studentName.replace(/\s/g,"");const m=S.data.clients.find(c=>c.name&&(c.name.includes(n)||n.includes(c.name)));if(m)clientId=m.id;}closeOfferForm();openOfferForm(null,{...p,id:null,clientId,currency:p.currency==="CNY"?"CNY":"AUD",commissions:p.commissions&&p.commissions.length?p.commissions:buildCommissions(p)});}catch(e){toast("JSON格式错误："+e.message);}
 };
-
-/* Offer表单 */
 window.openOfferForm=(id,draft)=>{
   const o=id?S.data.offers.find(x=>x.id===id):(draft||{id:null,clientId:"",studentName:"",institution:"",course:"",courseLevel:"Higher Education",currency:"AUD",tuitionTotal:"",intakeStartDate:"",commissionRate:"",commissions:[]});
   const area=document.getElementById("offer-form-area");if(!area)return;
@@ -470,8 +614,7 @@ window.parseOffer=async()=>{
   const roster=S.data.clients.map(c=>`${c.code}=${c.name}`).join("；")||"（暂无客户）";
   try{
     const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_KEY,"anthropic-version":"2023-06-01"},body:JSON.stringify({model:MODEL,max_tokens:1200,messages:[{role:"user",content:`你是澳洲留学Offer解析助手。只输出JSON，不要任何解释或代码块。字段：{"studentName":string|null,"matchedClientCode":string|null,"institution":string|null,"course":string|null,"courseLevel":"Higher Education"|"VET"|"ELICOS"|"Foundation"|"School"|"Other","currency":"AUD"|"CNY","tuitionTotal":number|null,"intakeStartDate":"YYYY-MM-DD"|null,"paymentSchedule":[{"label":string,"amount":number,"dueDate":"YYYY-MM-DD"|null,"note":string}],"commissionRate":number|null,"needsClarification":boolean,"clarificationQuestions":[string]}\n客户名单：${roster}\n\nOffer内容：\n${text}`}]})});
-    const j=await res.json();let txt=(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("").trim();
-    txt=txt.replace(/```json|```/g,"").trim();
+    const j=await res.json();let txt=(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("").trim();txt=txt.replace(/```json|```/g,"").trim();
     const p=JSON.parse(txt);let matched=null;
     if(p.matchedClientCode)matched=S.data.clients.find(c=>c.code===p.matchedClientCode);
     if(!matched&&p.studentName){const n=p.studentName.replace(/\s/g,"");matched=S.data.clients.find(c=>c.name&&(c.name.includes(n)||n.includes(c.name)));}
@@ -489,7 +632,7 @@ window.moveComm=async(oid,cid,action)=>{
 };
 
 window.exportJSON=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S.data,null,2)],{type:"application/json"}));a.download=`VJ台账备份_${today()}.json`;a.click();toast("已导出JSON");};
-window.exportCSV=()=>{const rows=[["日期","类型","客户","明细","币种","金额"]];S.data.transactions.forEach(t=>{const c=S.data.clients.find(c=>c.id===t.clientId);rows.push([t.date,t.kind==="income"?(t.incomeType||"收入"):(t.category||"支出"),c?c.name:"",(t.note||"").replace(/,/g," "),t.currency,(t.kind==="income"?"":"-")+t.amount]);});const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+rows.map(r=>r.join(",")).join("\n")],{type:"text/csv"}));a.download=`记账明细_${today()}.csv`;a.click();toast("已导出CSV");};
+window.exportCSV=()=>{const rows=[["日期","类型","客户","明细","状态","币种","金额"]];S.data.transactions.forEach(t=>{const c=S.data.clients.find(c=>c.id===t.clientId);rows.push([t.date,t.kind==="income"?(t.incomeType||"收入"):(t.category||"支出"),c?c.name:"",(t.note||"").replace(/,/g," "),t.unpaid?"未收款":"已收",t.currency,(t.kind==="income"?"":"-")+t.amount]);});const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+rows.map(r=>r.join(",")).join("\n")],{type:"text/csv"}));a.download=`记账明细_${today()}.csv`;a.click();toast("已导出CSV");};
 window.importJSON=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);update({...DEFAULT_DATA,...d});toast("导入成功！");}catch{toast("文件格式错误");}};r.readAsText(f);};
 window.clearAll=async()=>{if(await confirm2("确定清空所有数据？此操作不可恢复！"))update(JSON.parse(JSON.stringify(DEFAULT_DATA)));};
 window.saveApiKey=()=>{const k=document.getElementById("api-key-input")?.value?.trim();if(k){localStorage.setItem(ANTHROPIC_KEY_LS,k);ANTHROPIC_KEY=k;toast("API Key已保存");}};
