@@ -295,16 +295,7 @@ function renderDash(){
       <div class="row-r"><span class="pill" style="background:${COMM_STATUS[c.status].color}22;color:${COMM_STATUS[c.status].color}">${COMM_STATUS[c.status].label}</span><span class="amt">${fmt(c.commissionAmount,c.currency)}</span></div>
     </div>`).join("")}
   </section>
-  <section class="card">
-    <div class="card-h"><h2>⏰ 跟进待办</h2></div>
-    <div class="qtask">
-      <input id="task-title" placeholder="新增跟进事项…" style="flex:1;min-width:120px"/>
-      <input type="date" id="task-due" style="width:140px"/>
-      <button class="btn primary sm" onclick="addTask()">+</button>
-    </div>
-    ${openTasks.length===0?`<p class="empty">暂无待办</p>`:""}
-    <div id="task-list"></div>
-  </section>
+
 </div>
 <section class="card">
   <div class="card-h"><h2>✨ AI 经营建议</h2><button class="btn primary sm" onclick="runAdvice()">生成建议</button></div>
@@ -357,6 +348,7 @@ function renderComm(){
   <div style="display:flex;gap:10px;flex-wrap:wrap">
     <button class="btn primary" onclick="parseOffer()">✨ AI 识别</button>
     <button class="btn ghost" onclick="openOfferForm(null)">手动新增</button>
+  <button class="btn ghost" onclick="openOfferJSON()">📋 粘贴JSON导入</button>
   </div>
 </section>
 ${state.data.offers.length===0?`<p class="empty card">还没有Offer</p>`:state.data.offers.map(o=>`
@@ -384,25 +376,76 @@ ${state.data.offers.length===0?`<p class="empty card">还没有Offer</p>`:state.
 }
 
 function renderAnalytics(){
-  const refs=referrerStats();const types=typeRevenue();
+  const refs=referrerStats();const types=typeRevenue();const services=serviceStats();
+  const maxRef=Math.max(1,...refs.map(r=>r.AUD+r.CNY));
+  const maxType=Math.max(1,...types.map(t=>t.AUD+t.CNY));
+  const maxSvc=Math.max(1,...services.map(s=>s.count));
   return`<div class="grid2">
-<section class="card span2"><div class="card-h"><h2>推荐人表现</h2></div>
-${refs.length===0?`<p class="empty">暂无数据</p>`:`<table class="tbl mini"><thead><tr><th>推荐人</th><th>客户数</th><th>AUD收入</th><th>CNY收入</th></tr></thead><tbody>${refs.map(r=>`<tr><td><strong>${esc(r.name)}</strong></td><td>${r.clients}</td><td class="num">${r.AUD?fmt(r.AUD,"AUD"):"—"}</td><td class="num">${r.CNY?fmt(r.CNY,"CNY"):"—"}</td></tr>`).join("")}</tbody></table>`}
+
+<section class="card span2">
+  <div class="card-h"><h2>📊 服务项目分布</h2><span class="dim sm">共 ${services.reduce((s,x)=>s+x.count,0)} 项</span></div>
+  ${services.length===0?`<p class="empty">暂无数据，去「客户」页给客户添加服务项目标签</p>`:`
+  <div style="display:flex;flex-direction:column;gap:10px">
+  ${services.map(s=>`
+    <div style="display:grid;grid-template-columns:140px 1fr 36px;align-items:center;gap:10px">
+      <span style="font-size:12px;font-weight:600;color:var(--ink2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.name)}</span>
+      <div style="background:var(--line);border-radius:20px;height:20px;overflow:hidden">
+        <div style="height:100%;width:${(s.count/maxSvc*100).toFixed(1)}%;background:linear-gradient(90deg,var(--green),var(--ink));border-radius:20px;transition:width .3s"></div>
+      </div>
+      <span style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums">${s.count}</span>
+    </div>`).join("")}
+  </div>`}
 </section>
-<section class="card span2"><div class="card-h"><h2>业务方向收入</h2></div>
-${types.length===0?`<p class="empty">暂无数据</p>`:`<table class="tbl mini"><thead><tr><th>业务类型</th><th>AUD收入</th><th>CNY收入</th></tr></thead><tbody>${types.map(t=>`<tr><td><strong>${esc(t.name)}</strong></td><td class="num">${t.AUD?fmt(t.AUD,"AUD"):"—"}</td><td class="num">${t.CNY?fmt(t.CNY,"CNY"):"—"}</td></tr>`).join("")}</tbody></table>`}
-</section></div>`;
+
+<section class="card">
+  <div class="card-h"><h2>👥 推荐人表现</h2></div>
+  ${refs.length===0?`<p class="empty">暂无数据</p>`:`
+  <div style="display:flex;flex-direction:column;gap:8px">
+  ${refs.map(r=>`
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <span style="font-size:12px;font-weight:600">${esc(r.name)}</span>
+        <span style="font-size:11px;color:var(--muted)">${r.clients}个客户</span>
+      </div>
+      ${r.AUD?`<div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;margin-bottom:2px">
+        <div style="background:var(--line);border-radius:10px;height:14px;overflow:hidden"><div style="height:100%;width:${((r.AUD)/(maxRef||1)*100).toFixed(1)}%;background:var(--ink);border-radius:10px"></div></div>
+        <span style="font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap">${fmt(r.AUD,"AUD")}</span>
+      </div>`:""}
+      ${r.CNY?`<div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center">
+        <div style="background:var(--line);border-radius:10px;height:14px;overflow:hidden"><div style="height:100%;width:${((r.CNY)/(maxRef||1)*100).toFixed(1)}%;background:var(--green);border-radius:10px"></div></div>
+        <span style="font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap">${fmt(r.CNY,"CNY")}</span>
+      </div>`:""}
+    </div>`).join("")}
+  </div>`}
+</section>
+
+<section class="card">
+  <div class="card-h"><h2>💼 业务方向收入</h2></div>
+  ${types.length===0?`<p class="empty">暂无数据</p>`:`
+  <div style="display:flex;flex-direction:column;gap:8px">
+  ${types.map(t=>`
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <span style="font-size:12px;font-weight:600">${esc(t.name)}</span>
+      </div>
+      ${t.AUD?`<div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;margin-bottom:2px">
+        <div style="background:var(--line);border-radius:10px;height:14px;overflow:hidden"><div style="height:100%;width:${(t.AUD/maxType*100).toFixed(1)}%;background:var(--ink);border-radius:10px"></div></div>
+        <span style="font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap">${fmt(t.AUD,"AUD")}</span>
+      </div>`:""}
+      ${t.CNY?`<div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center">
+        <div style="background:var(--line);border-radius:10px;height:14px;overflow:hidden"><div style="height:100%;width:${(t.CNY/maxType*100).toFixed(1)}%;background:var(--green);border-radius:10px"></div></div>
+        <span style="font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap">${fmt(t.CNY,"CNY")}</span>
+      </div>`:""}
+    </div>`).join("")}
+  </div>`}
+</section>
+
+</div>`;
 }
-function referrerStats(){
-  const map={};
-  state.data.clients.forEach(c=>{const ref=c.referrer||"无推荐人";if(!map[ref])map[ref]={name:ref,clients:0,AUD:0,CNY:0};map[ref].clients++;});
-  state.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,state.year))return;const c=state.data.clients.find(c=>c.id===t.clientId);const ref=c?(c.referrer||"无推荐人"):"无关联";if(!map[ref])map[ref]={name:ref,clients:0,AUD:0,CNY:0};map[ref][t.currency]+=Number(t.amount);});
-  return Object.values(map).sort((a,b)=>(b.AUD+b.CNY)-(a.AUD+a.CNY));
-}
-function typeRevenue(){
-  const map={};
-  state.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,state.year))return;const c=state.data.clients.find(c=>c.id===t.clientId);const type=c?c.type:"未分类";if(!map[type])map[type]={name:type,AUD:0,CNY:0};map[type][t.currency]+=Number(t.amount);});
-  return Object.values(map);
+function serviceStats(){
+  const m={};
+  state.data.clients.forEach(c=>{(c.services||[]).forEach(s=>{m[s]=(m[s]||0)+1;});});
+  return Object.entries(m).map(([name,count])=>({name,count})).sort((a,b)=>b.count-a.count);
 }
 
 function renderSettings(){
@@ -499,13 +542,16 @@ window.openClientForm=(id)=>{
       <div class="fld"><span class="fld-l">邮箱</span><input id="cf-email" value="${esc(c.email||"")}"/></div>
       <div class="fld"><span class="fld-l">备注</span><input id="cf-notes" value="${esc(c.notes||"")}"/></div>
     </div>
+    <div class="fld"><span class="fld-l">服务项目 <em style="font-weight:400;color:var(--muted)">(多个用逗号分隔)</em></span><input id="cf-services" value="${esc((c.services||[]).join("，"))}"/></div>
     <div class="modal-f"><button class="btn" onclick="closeClientForm()">取消</button><button class="btn primary" onclick="saveClient('${id||""}')">保存</button></div>
   </div></div></div>`;
 };
 window.closeClientForm=()=>{const a=document.getElementById("client-form-area");if(a)a.innerHTML="";};
 window.saveClient=id=>{
   const name=document.getElementById("cf-name")?.value?.trim();if(!name){toast("姓名不能为空");return;}
-  const c={id:id||uid(),name,type:document.getElementById("cf-type")?.value,referrer:document.getElementById("cf-ref")?.value||"",phone:document.getElementById("cf-phone")?.value||"",email:document.getElementById("cf-email")?.value||"",notes:document.getElementById("cf-notes")?.value||"",services:[]};
+  const svcsRaw=document.getElementById("cf-services")?.value||"";
+  const services=svcsRaw.split(/[,，、\n]/).map(s=>s.trim()).filter(Boolean);
+  const c={id:id||uid(),name,type:document.getElementById("cf-type")?.value,referrer:document.getElementById("cf-ref")?.value||"",phone:document.getElementById("cf-phone")?.value||"",email:document.getElementById("cf-email")?.value||"",notes:document.getElementById("cf-notes")?.value||"",services};
   update(d=>{if(id){const i=d.clients.findIndex(x=>x.id===id);if(i>=0)d.clients[i]={...d.clients[i],...c};}else{const seq=d.settings.nextSeq;c.code=`${d.settings.prefix}-${String(seq).padStart(4,"0")}`;c.createdAt=today();d.clients.push(c);d.settings.nextSeq=seq+1;}return d;});
 };
 window.delClient=async id=>{if(await confirm2("删除该客户？"))update(d=>{d.clients=d.clients.filter(x=>x.id!==id);return d;});};
@@ -560,7 +606,45 @@ window.parseOffer=async()=>{
     openOfferForm(null,{...p,id:null,clientId:matched?matched.id:"",currency:p.currency==="CNY"?"CNY":"AUD",commissions:buildCommissions(p)});
   }catch(e){toast("识别失败："+e.message);}
 };
-window.openOfferForm=(id,draft)=>{
+window.openOfferJSON=()=>{
+  const area=document.getElementById("offer-form-area");if(!area)return;
+  area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeOfferForm()"><div class="modal" onclick="event.stopPropagation()">
+  <div class="modal-h"><h3>📋 粘贴 JSON 导入 Offer</h3><button class="icon-btn" onclick="closeOfferForm()">✕</button></div>
+  <div class="modal-b">
+    <p class="dim sm" style="margin-bottom:10px">把 Claude 给你的 Offer JSON 粘贴到下面，点「导入」自动填好所有字段。</p>
+    <textarea id="offer-json-input" class="ta" style="min-height:200px;font-family:monospace;font-size:12px" placeholder='{"clientId":"C-0001","institution":"AIA","course":"Master of Business Analytics",...}'></textarea>
+    <div class="modal-f"><button class="btn" onclick="closeOfferForm()">取消</button><button class="btn primary" onclick="importOfferJSON()">导入</button></div>
+  </div></div></div>`;
+};
+window.importOfferJSON=()=>{
+  const txt=document.getElementById("offer-json-input")?.value?.trim();
+  if(!txt){toast("请先粘贴JSON");return;}
+  try{
+    const p=JSON.parse(txt);
+    // 匹配客户
+    let clientId=p.clientId||"";
+    if(!clientId&&p.studentName){
+      const n=p.studentName.replace(/\s/g,"");
+      const matched=state.data.clients.find(c=>c.name&&(c.name.includes(n)||n.includes(c.name)));
+      if(matched)clientId=matched.id;
+    }
+    const draft={
+      id:null,clientId,
+      studentName:p.studentName||"",
+      institution:p.institution||"",
+      course:p.course||"",
+      courseLevel:p.courseLevel||"Higher Education",
+      currency:p.currency||"AUD",
+      tuitionTotal:Number(p.tuitionTotal)||0,
+      intakeStartDate:p.intakeStartDate||"",
+      commissionRate:Number(p.commissionRate)||0,
+      commissions:p.commissions||buildCommissions(p),
+      paymentSchedule:p.paymentSchedule||[],
+    };
+    closeOfferForm();
+    openOfferForm(null,draft);
+  }catch(e){toast("JSON格式错误："+e.message);}
+};
   const o=id?state.data.offers.find(x=>x.id===id):(draft||{id:null,clientId:"",studentName:"",institution:"",course:"",courseLevel:"Higher Education",currency:"AUD",tuitionTotal:"",intakeStartDate:"",commissionRate:"",commissions:[]});
   const area=document.getElementById("offer-form-area");if(!area)return;
   window._offerComms=o.commissions||[];
