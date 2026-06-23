@@ -302,14 +302,8 @@ function renderDash(){
       <input type="date" id="task-due" style="width:140px"/>
       <button class="btn primary sm" onclick="addTask()">+</button>
     </div>
-    ${openTasks.length===0?`<p class="empty">暂无待办</p>`:openTasks.map(x=>`
-    <div class="row">
-      <div class="row-main">
-        <label><input type="checkbox" onchange="doneTask('${x.id}')"/><span>${esc(x.title)}</span></label>
-        ${x.dueDate?`<p class="dim sm" style="margin-top:4px;margin-left:20px">截止 ${x.dueDate}</p>`:""}
-      </div>
-      <div class="row-side"><button class="icon-btn" onclick="delTask('${x.id}')">🗑</button></div>
-    </div>`).join("")}
+    ${openTasks.length===0?`<p class="empty">暂无待办</p>`:""}
+    <div id="task-list"></div>
   </section>
 </div>
 <section class="card">
@@ -443,6 +437,31 @@ function bindShell(){
   document.querySelectorAll(".tab[data-tab]").forEach(btn=>{btn.onclick=()=>{state.tab=btn.dataset.tab;render();};});
   document.getElementById("btn-logout")?.addEventListener("click",()=>signOut(auth));
   document.getElementById("sel-year")?.addEventListener("change",e=>{state.year=e.target.value==="all"?"all":Number(e.target.value);render();});
+  // 渲染待办列表（用DOM避免HTML转义问题）
+  renderTaskList();
+}
+
+function renderTaskList(){
+  const container=document.getElementById("task-list");
+  if(!container)return;
+  container.innerHTML="";
+  const openTasks=(state.data.tasks||[]).filter(x=>!x.done).sort((a,b)=>(a.dueDate||"").localeCompare(b.dueDate||""));
+  if(openTasks.length===0)return;
+  openTasks.forEach(x=>{
+    const row=document.createElement("div");row.className="row";
+    const main=document.createElement("div");main.className="row-main";
+    const label=document.createElement("label");
+    const cb=document.createElement("input");cb.type="checkbox";cb.onchange=()=>doneTask(x.id);
+    const span=document.createElement("span");span.textContent=x.title;
+    label.appendChild(cb);label.appendChild(span);
+    main.appendChild(label);
+    if(x.dueDate){const p=document.createElement("p");p.className="dim sm";p.style.marginTop="4px";p.style.marginLeft="20px";p.textContent="截止 "+x.dueDate;main.appendChild(p);}
+    const side=document.createElement("div");side.className="row-side";
+    const btn=document.createElement("button");btn.className="icon-btn";btn.textContent="🗑";btn.onclick=()=>delTask(x.id);
+    side.appendChild(btn);
+    row.appendChild(main);row.appendChild(side);
+    container.appendChild(row);
+  });
 }
 
 window.setTab=t=>{state.tab=t;render();};
