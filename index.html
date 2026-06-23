@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>VJ Agency Manager</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+:root{--paper:#F7F4EE;--paper2:#fff;--ink:#1B2A4A;--ink2:#3a4663;--muted:#8a90a0;--line:#E6E1D6;--green:#0E7C7B;--amber:#C8941E;--red:#A14034;--sans:'Manrope',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.45;min-height:100vh}
+#app{min-height:100vh}
+.loading{padding:80px;text-align:center;color:var(--muted);font-size:16px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--ink);color:#fff;flex-wrap:wrap;gap:10px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;border-radius:9px;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:15px;font-weight:700}
+.brand h1{font-size:17px;font-weight:600;margin-bottom:2px}
+.brand p{font-size:11px;opacity:.6;letter-spacing:1.5px}
+.yr{display:flex;align-items:center;gap:8px;font-size:12px;opacity:.85}
+.yr select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 9px;font-family:var(--sans)}
+.tabs{display:flex;gap:3px;padding:8px 16px 0;background:var(--ink);overflow-x:auto}
+.tab{display:flex;align-items:center;gap:5px;padding:9px 13px;border:none;background:transparent;color:rgba(255,255,255,.6);border-radius:9px 9px 0 0;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;white-space:nowrap}
+.tab:hover{color:#fff}.tab.on{background:var(--paper);color:var(--ink);font-weight:600}
+.content{padding:20px;max-width:1100px;margin:0 auto}
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:13px;padding:16px;margin-bottom:16px}
+.card.no-pad{padding:0;overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card h2{font-size:15px;font-weight:600;display:flex;align-items:center;gap:7px}
+.empty{color:var(--muted);text-align:center;padding:20px;font-size:13px}
+.dim{color:var(--muted)}.sm{font-size:12px}
+.link{background:none;border:none;color:var(--green);cursor:pointer;font-size:12px;font-family:var(--sans);font-weight:600}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gap{gap:10px}.span2{grid-column:1/-1}
+@media(max-width:700px){.grid4{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+.kpi{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--ac,#1B2A4A);border-radius:13px;padding:14px}
+.kpi-t{font-size:11px;color:var(--muted)}
+.kpi-m{font-size:24px;font-weight:700;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kpi-s{font-size:11px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:10px 13px;border-bottom:1px solid var(--line);font-weight:600}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr.rf{background:#A140340a}
+.tbl .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl .pos{color:var(--green);font-weight:600}.tbl .neg{color:var(--red);font-weight:600}
+.tbl.mini td,.tbl.mini th{padding:7px 5px;font-size:12px}
+.act{text-align:right;white-space:nowrap}
+.code{font-weight:600;color:var(--ink);background:var(--amber)22;padding:2px 7px;border-radius:5px;font-size:12px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);gap:10px}
+.row:last-child{border-bottom:none}
+.row-r{display:flex;align-items:center;gap:8px}
+.amt{font-weight:600;font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:8px;border:1px solid var(--line);background:var(--paper2);color:var(--ink);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;transition:.15s}
+.btn:hover{border-color:var(--ink2)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.primary:hover{background:var(--ink2)}
+.btn.ghost{background:transparent;border-style:dashed}
+.btn.danger{color:var(--red);border-color:var(--red)44}
+.btn.sm{padding:5px 9px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-col{display:flex;flex-direction:column;gap:8px}
+.icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:5px;font-size:15px}
+.icon-btn:hover{background:var(--line);color:var(--ink)}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:7px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;min-width:220px;color:var(--muted)}
+.srch input{border:none;background:none;outline:none;font-family:var(--sans);font-size:13px;width:100%;color:var(--ink)}
+.fld{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.fld-l{font-size:12px;color:var(--ink2);font-weight:600}
+input,select,textarea{font-family:var(--sans);font-size:13px;border:1px solid var(--line);border-radius:7px;padding:8px 10px;background:var(--paper2);color:var(--ink);outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--ink2)}
+.ta{width:100%;min-height:110px;resize:vertical;margin-bottom:10px}
+.seg{display:flex;gap:3px;background:var(--line);padding:3px;border-radius:9px;margin-bottom:12px}
+.seg button{flex:1;padding:7px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;color:var(--ink2)}
+.seg button.on{background:var(--paper2);color:var(--ink);box-shadow:0 1px 3px #0001}
+.qtask{display:grid;grid-template-columns:1fr auto auto;gap:6px;margin-bottom:10px}
+.ov{position:fixed;inset:0;background:#1B2A4A66;backdrop-filter:blur(3px);display:grid;place-items:center;padding:16px;z-index:50}
+.modal{background:var(--paper);border-radius:14px;width:100%;max-width:500px;max-height:90vh;overflow:auto;border:1px solid var(--line)}
+.modal.wide{max-width:700px}
+.modal-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper)}
+.modal-h h3{font-size:15px;font-weight:600}
+.modal-b{padding:18px}
+.modal-f{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.match{display:flex;align-items:center;gap:8px;border-radius:9px;padding:9px 12px;margin-bottom:10px;font-size:13px}
+.match.ok{background:#0E7C7B16;border:1px solid #0E7C7B55;color:#0a5b5a}
+.match.no{background:#C8941E18;border:1px solid #C8941E66;color:#7a5b12}
+.advice p{margin-bottom:4px;font-size:13px;line-height:1.7}
+.comm-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.comm-row:last-child{border-bottom:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:9px;font-size:13px;font-weight:500;box-shadow:0 8px 24px #1b2a4a44;z-index:100;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
+.toast.show{opacity:1}
+.backup-hint{background:#0E7C7B18;border:1px solid #0E7C7B55;border-radius:10px;padding:12px 14px;font-size:12px;color:#0a5b5a;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div id="app"><div class="loading">载入中…</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STORE_KEY = "vj_agency_v1";
+const ANTHROPIC_KEY_LS = "vj_anthropic_key";
+let ANTHROPIC_KEY = localStorage.getItem(ANTHROPIC_KEY_LS) || "";
+const ANTHROPIC_MODEL = "claude-sonnet-4-6";
+
+const CCY = { AUD:{label:"澳币",symbol:"A$"}, CNY:{label:"人民币",symbol:"¥"} };
+const DEFAULT_CLIENT_TYPES = ["签证","学校","职评","雇主","猎头","上诉","咨询","其他"];
+const EXPENSE_CATS = ["办公租金","工资薪酬","推荐人返佣","营销推广","政府/申请费","差旅","软件订阅","专业服务","其他"];
+const INCOME_TYPES = ["服务费","佣金","其他"];
+const DEFAULT_SERVICE_SEED = ["签证申请","学校申请","职业评估","雇主担保","猎头服务","上诉/复审","咨询服务","482 SBS","482 NOM","482 VISA","189 独立技术","190 州担保","PR 永居","学生签 500","配偶签 820/801","其他"];
+const COURSE_LEVELS = ["Higher Education","VET","ELICOS","Foundation","School","Other"];
+const COMM_STATUS = {
+  awaiting_tuition:{label:"待付学费",color:"#8a90a0"},
+  claimable:{label:"可申请",color:"#C8941E"},
+  claimed:{label:"已申请",color:"#1B2A4A"},
+  received:{label:"已收到",color:"#0E7C7B"},
+  refunded:{label:"已退款",color:"#A14034"},
+};
+const DEFAULT_DATA = {
+  clients:[], transactions:[], offers:[], tasks:[],
+  settings:{prefix:"C",nextSeq:1,clientTypes:DEFAULT_CLIENT_TYPES,serviceSeed:DEFAULT_SERVICE_SEED}
+};
+
+const uid = ()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const today = ()=>new Date().toISOString().slice(0,10);
+const addMonths = (s,n)=>{if(!s)return null;const d=new Date(s);if(isNaN(d))return null;d.setMonth(d.getMonth()+n);return d.toISOString().slice(0,10);};
+const fmt = (amt,ccy)=>{const s=(CCY[ccy]||{}).symbol||"";return s+Number(amt||0).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});};
+const esc = s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+// 状态
+let state = {data:JSON.parse(JSON.stringify(DEFAULT_DATA)),tab:"dash",year:new Date().getFullYear()};
+
+// 本地存储
+function loadData(){
+  try{const s=localStorage.getItem(STORE_KEY);if(s)return{...DEFAULT_DATA,...JSON.parse(s),settings:{...DEFAULT_DATA.settings,...(JSON.parse(s).settings||{})}};}catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function saveData(d){try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
+function update(mut){
+  if(typeof mut==="function") state.data=mut(JSON.parse(JSON.stringify(state.data)));
+  else state.data=mut;
+  saveData(state.data);
+  render();
+}
+
+// Toast
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.className="toast show";
+  clearTimeout(t._t);t._t=setTimeout(()=>t.className="toast",2600);
+}
+
+// Confirm
+function confirm2(msg){
+  return new Promise(res=>{
+    const ov=document.createElement("div");ov.className="ov";
+    ov.innerHTML=`<div class="modal" style="max-width:400px"><div class="modal-h"><h3>确认操作</h3></div><div class="modal-b"><p style="font-size:14px;line-height:1.6">${esc(msg)}</p><div class="modal-f"><button class="btn" id="cno">取消</button><button class="btn danger" id="cyes">确定</button></div></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelector("#cno").onclick=()=>{ov.remove();res(false);};
+    ov.querySelector("#cyes").onclick=()=>{ov.remove();res(true);};
+  });
+}
+
+// AI
+async function callAI(messages,maxTokens=1000){
+  if(!ANTHROPIC_KEY){toast("请先在「设置」里填入 Anthropic API Key");throw new Error("No API Key");}
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_KEY,"anthropic-version":"2023-06-01"},
+    body:JSON.stringify({model:ANTHROPIC_MODEL,max_tokens:maxTokens,messages})
+  });
+  const j=await res.json();
+  if(j.error) throw new Error(j.error.message);
+  return (j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("");
+}
+
+// 辅助
+function inYear(d,y){if(y==="all")return true;if(!d)return false;return new Date(d).getFullYear()===Number(y);}
+function totalsByCcy(txs,y){
+  const r={AUD:{income:0,expense:0},CNY:{income:0,expense:0}};
+  txs.forEach(t=>{if(!inYear(t.date,y))return;const c=r[t.currency]||r.AUD;if(t.kind==="income")c.income+=Number(t.amount);else c.expense+=Number(t.amount);});
+  return r;
+}
+function clientName(id){const c=state.data.clients.find(c=>c.id===id);return c?`${c.name}（${c.code}）`:"—";}
+function buildCommissions(p){
+  const ccy=p.currency||"AUD";const rate=Number(p.commissionRate)||0;const out=[];
+  const sched=Array.isArray(p.paymentSchedule)?p.paymentSchedule.filter(s=>s&&Number(s.amount)):[];
+  if(sched.length>0)sched.forEach((s,i)=>{const b=Number(s.amount)||0;out.push({id:uid(),label:s.label||`第${i+1}期学费`,basisAmount:b,rate,currency:ccy,commissionAmount:+(b*rate/100).toFixed(2),tuitionPaid:false,claimableDate:s.dueDate||null,status:"awaiting_tuition",note:s.note||""});});
+  else if((p.courseLevel||"").toLowerCase().includes("higher")){const b=Number(p.tuitionTotal)||0;out.push({id:uid(),label:"全额学费佣金",basisAmount:b,rate,currency:ccy,commissionAmount:+(b*rate/100).toFixed(2),tuitionPaid:false,claimableDate:addMonths(p.intakeStartDate,3),status:"awaiting_tuition",note:"Higher Education 默认开学后3个月可申请"});}
+  else{const b=Number(p.tuitionTotal)||0;out.push({id:uid(),label:"学费佣金（待确认）",basisAmount:b,rate,currency:ccy,commissionAmount:+(b*rate/100).toFixed(2),tuitionPaid:false,claimableDate:null,status:"awaiting_tuition",note:"时间不确定，需clarify"});}
+  return out;
+}
+function getYears(){
+  const s=new Set([new Date().getFullYear()]);
+  state.data.transactions.forEach(t=>s.add(new Date(t.date).getFullYear()));
+  return Array.from(s).sort((a,b)=>b-a);
+}
+
+// 渲染
+function render(){
+  const app=document.getElementById("app");if(!app)return;
+  app.innerHTML=renderShell();
+  bindShell();
+}
+
+function renderShell(){
+  const tabs=[["dash","📊 仪表盘"],["clients","👥 客户"],["ledger","📒 记账"],["comm","🎓 Offer/佣金"],["analytics","📈 分析"],["settings","⚙️ 设置"]];
+  return `
+<header class="topbar">
+  <div class="brand"><span class="logo">VJ</span><div><h1>VJ Consulting & Education</h1><p>客户 · 记账 · 佣金 · 退款</p></div></div>
+  <div class="yr"><span>年度</span><select id="sel-year">${["all",...getYears()].map(y=>`<option value="${y}"${state.year==y?" selected":""}>${y==="all"?"全部":y+" 年"}</option>`).join("")}</select></div>
+</header>
+<nav class="tabs">${tabs.map(([id,label])=>`<button class="tab${state.tab===id?" on":""}" data-tab="${id}">${label}</button>`).join("")}</nav>
+<main class="content">${renderTab()}</main>`;
+}
+
+function renderTab(){
+  switch(state.tab){
+    case"dash":return renderDash();
+    case"clients":return renderClients();
+    case"ledger":return renderLedger();
+    case"comm":return renderComm();
+    case"analytics":return renderAnalytics();
+    case"settings":return renderSettings();
+    default:return"";
+  }
+}
+
+// 仪表盘
+function renderDash(){
+  const t=totalsByCcy(state.data.transactions,state.year);
+  const allComms=state.data.offers.flatMap(o=>(o.commissions||[]).map(c=>({...c,offer:o})));
+  const dueComms=allComms.filter(c=>c.status==="claimable"||(c.status==="awaiting_tuition"&&c.claimableDate&&c.claimableDate<=addMonths(today(),1))).sort((a,b)=>(a.claimableDate||"").localeCompare(b.claimableDate||""));
+  const openTasks=(state.data.tasks||[]).filter(x=>!x.done).sort((a,b)=>(a.dueDate||"").localeCompare(b.dueDate||""));
+  return `
+<div class="grid4">
+  <div class="kpi" style="--ac:#1B2A4A"><p class="kpi-t">澳币净收入</p><p class="kpi-m">${fmt(t.AUD.income-t.AUD.expense,"AUD")}</p><p class="kpi-s">收${fmt(t.AUD.income,"AUD")} · 支${fmt(t.AUD.expense,"AUD")}</p></div>
+  <div class="kpi" style="--ac:#0E7C7B"><p class="kpi-t">人民币净收入</p><p class="kpi-m">${fmt(t.CNY.income-t.CNY.expense,"CNY")}</p><p class="kpi-s">收${fmt(t.CNY.income,"CNY")} · 支${fmt(t.CNY.expense,"CNY")}</p></div>
+  <div class="kpi" style="--ac:#C8941E"><p class="kpi-t">客户总数</p><p class="kpi-m">${state.data.clients.length}</p><p class="kpi-s">Offer ${state.data.offers.length} 份</p></div>
+  <div class="kpi" style="--ac:#A14034"><p class="kpi-t">待claim佣金</p><p class="kpi-m">${dueComms.length}</p><p class="kpi-s">点下方提醒处理</p></div>
+</div>
+<div class="grid2">
+  <section class="card">
+    <div class="card-h"><h2>🔔 佣金提醒</h2><button class="link" onclick="setTab('comm')">全部 →</button></div>
+    ${dueComms.length===0?`<p class="empty">暂无需要处理的佣金</p>`:dueComms.map(c=>`<div class="row"><div><strong>${esc(c.offer.institution)}</strong><p class="dim">${esc(clientName(c.offer.clientId))} · ${esc(c.label)}</p></div><div class="row-r"><span class="pill" style="background:${COMM_STATUS[c.status].color}22;color:${COMM_STATUS[c.status].color}">${COMM_STATUS[c.status].label}</span><span class="amt">${fmt(c.commissionAmount,c.currency)}</span></div></div>`).join("")}
+  </section>
+  <section class="card">
+    <div class="card-h"><h2>⏰ 跟进待办</h2></div>
+    <div class="qtask"><input id="task-title" placeholder="新增跟进事项…"/><input type="date" id="task-due"/><button class="btn primary sm" onclick="addTask()">+</button></div>
+    ${openTasks.length===0?`<p class="empty">暂无待办</p>`:openTasks.map(x=>`<div class="row"><div><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" onchange="doneTask('${x.id}')"/><span>${esc(x.title)}</span></label>${x.dueDate?`<p class="dim sm">截止 ${x.dueDate}</p>`:""}</div><button class="icon-btn" onclick="delTask('${x.id}')">🗑</button></div>`).join("")}
+  </section>
+</div>
+<section class="card">
+  <div class="card-h"><h2>✨ AI 经营建议</h2><button class="btn primary sm" onclick="runAdvice()">生成建议</button></div>
+  <div id="advice-box"><p class="empty">基于你的收支、推荐人、业务数据给出建议</p></div>
+</section>`;
+}
+
+// 客户
+function renderClients(q=""){
+  const list=state.data.clients.filter(c=>!q||c.name.includes(q)||c.code.toLowerCase().includes(q.toLowerCase())||(c.referrer||"").includes(q));
+  return `
+<div class="bar">
+  <div class="srch">🔍<input id="client-q" placeholder="搜索姓名/客户号/推荐人" value="${esc(q)}" oninput="rerenderClients(this.value)"/></div>
+  <button class="btn primary" onclick="openClientForm()">+ 新增客户</button>
+</div>
+<div class="card no-pad"><table class="tbl">
+<thead><tr><th>客户号</th><th>姓名</th><th>业务</th><th>推荐人</th><th>累计收入</th><th></th></tr></thead>
+<tbody>${list.length===0?`<tr><td colspan="6" class="empty">暂无客户</td></tr>`:list.map(c=>{
+  const inc=state.data.transactions.filter(t=>t.clientId===c.id&&t.kind==="income");
+  const aud=inc.filter(t=>t.currency==="AUD").reduce((s,t)=>s+Number(t.amount),0);
+  const cny=inc.filter(t=>t.currency==="CNY").reduce((s,t)=>s+Number(t.amount),0);
+  return `<tr><td><span class="code">${esc(c.code)}</span></td><td><strong>${esc(c.name)}</strong></td><td><span class="pill" style="background:#1B2A4A22;color:#1B2A4A">${esc(c.type)}</span></td><td>${esc(c.referrer||"—")}</td><td class="num">${aud?fmt(aud,"AUD"):""}${aud&&cny?" / ":""}${cny?fmt(cny,"CNY"):""}${!aud&&!cny?"—":""}</td><td class="act"><button class="icon-btn" onclick="openClientForm('${c.id}')">✏️</button><button class="icon-btn" onclick="delClient('${c.id}')">🗑</button></td></tr>`;
+}).join("")}</tbody>
+</table></div><div id="client-form-area"></div>`;
+}
+
+// 记账
+function renderLedger(){
+  const list=state.data.transactions.filter(t=>inYear(t.date,state.year)).sort((a,b)=>b.date.localeCompare(a.date));
+  return `
+<div class="bar"><div></div><button class="btn primary" onclick="openTxForm()">+ 新增记账</button></div>
+<div class="card no-pad"><table class="tbl">
+<thead><tr><th>日期</th><th>类型</th><th>客户</th><th>明细</th><th>币种</th><th>金额</th><th></th></tr></thead>
+<tbody>${list.length===0?`<tr><td colspan="7" class="empty">本年度暂无记账</td></tr>`:list.map(t=>`
+<tr class="${t.isRefund?"rf":""}">
+<td class="dim">${t.date}</td>
+<td>${t.kind==="income"?`<span class="pill" style="background:#0E7C7B22;color:#0E7C7B">↑ ${esc(t.incomeType||"收入")}</span>`:`<span class="pill" style="background:#A1403422;color:#A14034">↓ ${esc(t.category||"支出")}</span>`}</td>
+<td>${t.clientId?esc(clientName(t.clientId)):"—"}</td>
+<td>${esc(t.note||"—")}</td>
+<td class="dim">${CCY[t.currency]?.label||t.currency}</td>
+<td class="num ${t.kind==="income"?"pos":"neg"}">${t.kind==="income"?"+":"−"}${fmt(t.amount,t.currency)}</td>
+<td class="act"><button class="icon-btn" onclick="openTxForm('${t.id}')">✏️</button><button class="icon-btn" onclick="delTx('${t.id}')">🗑</button></td>
+</tr>`).join("")}</tbody>
+</table></div><div id="tx-form-area"></div>`;
+}
+
+// Offer/佣金
+function renderComm(){
+  return `
+<section class="card">
+  <div class="card-h"><h2>✨ 粘贴Offer，AI自动识别</h2></div>
+  <textarea id="offer-text" class="ta" placeholder="把Offer内容粘贴到这里（院校、课程、学费、开学日期、付款分期、佣金比例…），然后点「AI识别」"></textarea>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn primary" onclick="parseOffer()">✨ AI 识别</button>
+    <button class="btn ghost" onclick="openOfferForm(null)">手动新增</button>
+  </div>
+</section>
+${state.data.offers.length===0?`<p class="empty card">还没有Offer</p>`:state.data.offers.map(o=>`
+<section class="card" style="margin-bottom:14px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+    <div><h3 style="font-size:15px;margin:0 0 4px;font-weight:600">${esc(o.institution||"未命名院校")}</h3><p class="dim">${esc(clientName(o.clientId))} · ${esc(o.course||"—")} · <span class="pill" style="background:#1B2A4A22;color:#1B2A4A">${esc(o.courseLevel)}</span></p></div>
+    <div style="display:flex;gap:6px"><button class="icon-btn" onclick="openOfferForm('${o.id}')">✏️</button><button class="icon-btn" onclick="delOffer('${o.id}')">🗑</button></div>
+  </div>
+  <div style="margin-top:12px;border-top:1px solid #E6E1D6;padding-top:8px">
+  ${(o.commissions||[]).map(c=>`
+    <div class="comm-row">
+      <div><strong>${esc(c.label)}</strong><br><span class="dim sm">基数 ${fmt(c.basisAmount,c.currency)} × ${c.rate||0}% = <b>${fmt(c.commissionAmount,c.currency)}</b> · 可申请 ${c.claimableDate||"待定"}</span></div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span class="pill" style="background:${COMM_STATUS[c.status]?.color||"#888"}22;color:${COMM_STATUS[c.status]?.color||"#888"}">${COMM_STATUS[c.status]?.label||c.status}</span>
+        ${c.status==="awaiting_tuition"?`<button class="btn sm" onclick="moveComm('${o.id}','${c.id}','paid')">学费已付</button>`:""}
+        ${c.status==="claimable"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','claimed')">标记已申请</button>`:""}
+        ${c.status==="claimed"?`<button class="btn sm primary" onclick="moveComm('${o.id}','${c.id}','received')">佣金已收到</button>`:""}
+        ${c.status!=="refunded"?`<button class="icon-btn" title="退款" onclick="moveComm('${o.id}','${c.id}','refund')">↩</button>`:""}
+      </div>
+    </div>`).join("")}
+  </div>
+</section>`).join("")}
+<div id="offer-form-area"></div>`;
+}
+
+// 分析
+function renderAnalytics(){
+  const refs=referrerStats();const types=typeRevenue();
+  return `<div class="grid2">
+<section class="card span2"><div class="card-h"><h2>推荐人表现</h2></div>
+${refs.length===0?`<p class="empty">暂无数据</p>`:`<table class="tbl mini"><thead><tr><th>推荐人</th><th>客户数</th><th>AUD收入</th><th>CNY收入</th></tr></thead><tbody>${refs.map(r=>`<tr><td><strong>${esc(r.name)}</strong></td><td>${r.clients}</td><td class="num">${r.AUD?fmt(r.AUD,"AUD"):"—"}</td><td class="num">${r.CNY?fmt(r.CNY,"CNY"):"—"}</td></tr>`).join("")}</tbody></table>`}
+</section>
+<section class="card span2"><div class="card-h"><h2>业务方向收入</h2></div>
+${types.length===0?`<p class="empty">暂无数据</p>`:`<table class="tbl mini"><thead><tr><th>业务类型</th><th>AUD收入</th><th>CNY收入</th></tr></thead><tbody>${types.map(t=>`<tr><td><strong>${esc(t.name)}</strong></td><td class="num">${t.AUD?fmt(t.AUD,"AUD"):"—"}</td><td class="num">${t.CNY?fmt(t.CNY,"CNY"):"—"}</td></tr>`).join("")}</tbody></table>`}
+</section></div>`;
+}
+function referrerStats(){
+  const map={};
+  state.data.clients.forEach(c=>{const ref=c.referrer||"无推荐人";if(!map[ref])map[ref]={name:ref,clients:0,AUD:0,CNY:0};map[ref].clients++;});
+  state.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,state.year))return;const c=state.data.clients.find(c=>c.id===t.clientId);const ref=c?(c.referrer||"无推荐人"):"无关联";if(!map[ref])map[ref]={name:ref,clients:0,AUD:0,CNY:0};map[ref][t.currency]+=Number(t.amount);});
+  return Object.values(map).sort((a,b)=>(b.AUD+b.CNY)-(a.AUD+a.CNY));
+}
+function typeRevenue(){
+  const map={};
+  state.data.transactions.forEach(t=>{if(t.kind!=="income"||!inYear(t.date,state.year))return;const c=state.data.clients.find(c=>c.id===t.clientId);const type=c?c.type:"未分类";if(!map[type])map[type]={name:type,AUD:0,CNY:0};map[type][t.currency]+=Number(t.amount);});
+  return Object.values(map);
+}
+
+// 设置
+function renderSettings(){
+  return `<div class="grid2">
+<section class="card span2">
+  <div class="backup-hint">💡 数据存在你这台电脑的浏览器里。建议<strong>每周点一次「导出JSON」</strong>，把文件保存到U盘或微信/邮件发给自己，防止电脑故障丢失数据。</div>
+</section>
+<section class="card">
+  <div class="card-h"><h2>客户号设置</h2></div>
+  <div class="fld"><span class="fld-l">客户号前缀</span><input id="set-prefix" value="${esc(state.data.settings.prefix)}" onchange="update(d=>{d.settings.prefix=this.value;return d;})"/></div>
+  <p class="dim sm">下一个：${state.data.settings.prefix}-${String(state.data.settings.nextSeq).padStart(4,"0")}</p>
+</section>
+<section class="card">
+  <div class="card-h"><h2>☁️ 数据备份 / 导入</h2></div>
+  <div class="btn-col">
+    <button class="btn primary" onclick="exportJSON()">⬇ 导出全部数据（JSON）</button>
+    <button class="btn" onclick="exportCSV()">⬇ 导出记账明细（CSV/Excel）</button>
+    <label class="btn" style="cursor:pointer;justify-content:center">⬆ 导入JSON备份<input type="file" onchange="importJSON(event)" style="display:none"/></label>
+    <button class="btn danger" onclick="clearAll()">🗑 清空全部数据</button>
+  </div>
+</section>
+<section class="card span2">
+  <div class="card-h"><h2>🤖 AI功能设置（Anthropic API Key）</h2></div>
+  <p class="dim sm" style="margin-bottom:10px">AI解析Offer和AI经营建议需要填入API Key。去 console.anthropic.com 注册后获取，充值$5约够用几百次。</p>
+  <div class="fld"><span class="fld-l">API Key</span><input id="api-key-input" type="password" value="${esc(ANTHROPIC_KEY)}" placeholder="sk-ant-..."/></div>
+  <button class="btn primary" onclick="saveApiKey()">保存</button>
+</section>
+</div>`;
+}
+
+// 事件绑定
+function bindShell(){
+  document.querySelectorAll(".tab[data-tab]").forEach(btn=>{btn.onclick=()=>{state.tab=btn.dataset.tab;render();};});
+  document.getElementById("sel-year")?.addEventListener("change",e=>{state.year=e.target.value==="all"?"all":Number(e.target.value);render();});
+}
+
+// 全局函数
+window.setTab=t=>{state.tab=t;render();};
+window.rerenderClients=q=>{document.querySelector(".content").innerHTML=renderClients(q);};
+window.addTask=()=>{const title=document.getElementById("task-title")?.value?.trim();const due=document.getElementById("task-due")?.value;if(!title)return;update(d=>{d.tasks.push({id:uid(),title,dueDate:due||null,done:false});return d;});};
+window.doneTask=id=>update(d=>{const t=d.tasks.find(x=>x.id===id);if(t)t.done=true;return d;});
+window.delTask=id=>update(d=>{d.tasks=d.tasks.filter(x=>x.id!==id);return d;});
+window.runAdvice=async()=>{
+  const box=document.getElementById("advice-box");
+  if(box)box.innerHTML=`<p class="dim">分析中…</p>`;
+  const t=totalsByCcy(state.data.transactions,state.year);
+  const summary={年度:state.year,澳币收入:t.AUD.income,澳币支出:t.AUD.expense,人民币收入:t.CNY.income,人民币支出:t.CNY.expense,客户数:state.data.clients.length,Offer数:state.data.offers.length};
+  try{
+    const txt=await callAI([{role:"user",content:"你是澳洲移民/留学事务所经营顾问。用简体中文给出4-6条具体可执行建议。直接给要点，不要寒暄。\n\n数据:\n"+JSON.stringify(summary,null,2)}]);
+    if(box)box.innerHTML=`<div class="advice">${txt.split("\n").map(l=>`<p>${esc(l)}</p>`).join("")}</div>`;
+  }catch(e){if(box)box.innerHTML=`<p class="dim">生成失败：${esc(e.message)}</p>`;}
+};
+
+window.openClientForm=(id)=>{
+  const c=id?state.data.clients.find(x=>x.id===id):{name:"",type:DEFAULT_CLIENT_TYPES[0],referrer:"",phone:"",email:"",notes:""};
+  const area=document.getElementById("client-form-area");if(!area)return;
+  area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeClientForm()"><div class="modal" onclick="event.stopPropagation()">
+  <div class="modal-h"><h3>${id?"编辑客户":"新增客户"}</h3><button class="icon-btn" onclick="closeClientForm()">✕</button></div>
+  <div class="modal-b">
+    <div class="grid2 gap">
+      <div class="fld"><span class="fld-l">姓名</span><input id="cf-name" value="${esc(c.name||"")}"/></div>
+      <div class="fld"><span class="fld-l">业务类型</span><select id="cf-type">${DEFAULT_CLIENT_TYPES.map(x=>`<option${(c.type||"")==x?" selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">推荐人</span><input id="cf-ref" value="${esc(c.referrer||"")}"/></div>
+      <div class="fld"><span class="fld-l">电话</span><input id="cf-phone" value="${esc(c.phone||"")}"/></div>
+      <div class="fld"><span class="fld-l">邮箱</span><input id="cf-email" value="${esc(c.email||"")}"/></div>
+      <div class="fld"><span class="fld-l">备注</span><input id="cf-notes" value="${esc(c.notes||"")}"/></div>
+    </div>
+    <div class="modal-f"><button class="btn" onclick="closeClientForm()">取消</button><button class="btn primary" onclick="saveClient('${id||""}')">保存</button></div>
+  </div></div></div>`;
+};
+window.closeClientForm=()=>{const a=document.getElementById("client-form-area");if(a)a.innerHTML="";};
+window.saveClient=id=>{
+  const name=document.getElementById("cf-name")?.value?.trim();if(!name){toast("姓名不能为空");return;}
+  const c={id:id||uid(),name,type:document.getElementById("cf-type")?.value,referrer:document.getElementById("cf-ref")?.value||"",phone:document.getElementById("cf-phone")?.value||"",email:document.getElementById("cf-email")?.value||"",notes:document.getElementById("cf-notes")?.value||"",services:[]};
+  update(d=>{if(id){const i=d.clients.findIndex(x=>x.id===id);if(i>=0)d.clients[i]={...d.clients[i],...c};}else{const seq=d.settings.nextSeq;c.code=`${d.settings.prefix}-${String(seq).padStart(4,"0")}`;c.createdAt=today();d.clients.push(c);d.settings.nextSeq=seq+1;}return d;});
+};
+window.delClient=async id=>{if(await confirm2("删除该客户？"))update(d=>{d.clients=d.clients.filter(x=>x.id!==id);return d;});};
+
+window.openTxForm=(id)=>{
+  const tx=id?state.data.transactions.find(x=>x.id===id):{kind:"income",incomeType:"服务费",category:EXPENSE_CATS[0],currency:"AUD",amount:"",date:today(),clientId:"",note:""};
+  const area=document.getElementById("tx-form-area");if(!area)return;
+  area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeTxForm()"><div class="modal" onclick="event.stopPropagation()">
+  <div class="modal-h"><h3>${id?"编辑记账":"新增记账"}</h3><button class="icon-btn" onclick="closeTxForm()">✕</button></div>
+  <div class="modal-b">
+    <div class="seg"><button class="${(tx.kind||"income")==="income"?"on":""}" onclick="setTxKind('income')">收入</button><button class="${(tx.kind||"income")==="expense"?"on":""}" onclick="setTxKind('expense')">支出</button></div>
+    <div class="grid2 gap">
+      <div class="fld" id="tx-type-field"><span class="fld-l">${tx.kind==="expense"?"支出分类":"收入类型"}</span>${tx.kind==="expense"?`<select id="tx-cat">${EXPENSE_CATS.map(x=>`<option${tx.category===x?" selected":""}>${x}</option>`).join("")}</select>`:`<select id="tx-itype">${INCOME_TYPES.map(x=>`<option${tx.incomeType===x?" selected":""}>${x}</option>`).join("")}</select>`}</div>
+      <div class="fld"><span class="fld-l">客户（可选）</span><select id="tx-client"><option value="">不关联</option>${state.data.clients.map(c=>`<option value="${c.id}"${tx.clientId===c.id?" selected":""}>${esc(c.name)}（${esc(c.code)}）</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">币种</span><select id="tx-ccy">${Object.keys(CCY).map(k=>`<option value="${k}"${tx.currency===k?" selected":""}>${CCY[k].label}</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">金额</span><input type="number" id="tx-amt" value="${tx.amount||""}"/></div>
+      <div class="fld"><span class="fld-l">日期</span><input type="date" id="tx-date" value="${tx.date||today()}"/></div>
+      <div class="fld"><span class="fld-l">说明</span><input id="tx-note" value="${esc(tx.note||"")}"/></div>
+    </div>
+    <div class="modal-f"><button class="btn" onclick="closeTxForm()">取消</button><button class="btn primary" onclick="saveTx('${id||""}')">保存</button></div>
+  </div></div></div>`;
+  window._txKind=tx.kind||"income";
+};
+window.closeTxForm=()=>{const a=document.getElementById("tx-form-area");if(a)a.innerHTML="";};
+window.setTxKind=k=>{
+  window._txKind=k;
+  const f=document.getElementById("tx-type-field");if(!f)return;
+  if(k==="income")f.innerHTML=`<span class="fld-l">收入类型</span><select id="tx-itype">${INCOME_TYPES.map(x=>`<option>${x}</option>`).join("")}</select>`;
+  else f.innerHTML=`<span class="fld-l">支出分类</span><select id="tx-cat">${EXPENSE_CATS.map(x=>`<option>${x}</option>`).join("")}</select>`;
+  document.querySelectorAll(".seg button").forEach((b,i)=>b.className=((k==="income"&&i===0)||(k==="expense"&&i===1))?"on":"");
+};
+window.saveTx=id=>{
+  const kind=window._txKind||"income";
+  const amt=Number(document.getElementById("tx-amt")?.value);if(!amt){toast("金额不能为空");return;}
+  const t={id:id||uid(),kind,incomeType:kind==="income"?(document.getElementById("tx-itype")?.value||"服务费"):null,category:kind==="expense"?(document.getElementById("tx-cat")?.value||EXPENSE_CATS[0]):null,currency:document.getElementById("tx-ccy")?.value||"AUD",amount:amt,date:document.getElementById("tx-date")?.value||today(),clientId:document.getElementById("tx-client")?.value||"",note:document.getElementById("tx-note")?.value||""};
+  update(d=>{if(id){const i=d.transactions.findIndex(x=>x.id===id);if(i>=0)d.transactions[i]=t;}else d.transactions.push(t);return d;});
+  delete window._txKind;
+};
+window.delTx=async id=>{if(await confirm2("删除该笔记录？"))update(d=>{d.transactions=d.transactions.filter(x=>x.id!==id);return d;});};
+
+window.parseOffer=async()=>{
+  const text=document.getElementById("offer-text")?.value?.trim();if(!text){toast("请先粘贴Offer内容");return;}
+  toast("AI识别中…");
+  const roster=state.data.clients.map(c=>`${c.code}=${c.name}`).join("；")||"（暂无客户）";
+  const sys=`你是澳洲留学Offer解析助手。只输出JSON，不要任何解释或代码块。字段：{"studentName":string|null,"matchedClientCode":string|null,"institution":string|null,"course":string|null,"courseLevel":"Higher Education"|"VET"|"ELICOS"|"Foundation"|"School"|"Other","currency":"AUD"|"CNY","tuitionTotal":number|null,"intakeStartDate":"YYYY-MM-DD"|null,"paymentSchedule":[{"label":string,"amount":number,"dueDate":"YYYY-MM-DD"|null,"note":string}],"commissionRate":number|null,"needsClarification":boolean,"clarificationQuestions":[string]}\n客户名单：${roster}`;
+  try{
+    let txt=await callAI([{role:"user",content:`${sys}\n\nOffer内容：\n${text}`}],1200);
+    txt=txt.replace(/```json|```/g,"").trim();
+    const p=JSON.parse(txt);let matched=null;
+    if(p.matchedClientCode)matched=state.data.clients.find(c=>c.code===p.matchedClientCode);
+    if(!matched&&p.studentName){const n=p.studentName.replace(/\s/g,"");matched=state.data.clients.find(c=>c.name&&(c.name.includes(n)||n.includes(c.name)));}
+    openOfferForm(null,{...p,id:null,clientId:matched?matched.id:"",currency:p.currency==="CNY"?"CNY":"AUD",commissions:buildCommissions(p)});
+  }catch(e){toast("识别失败："+e.message);}
+};
+window.openOfferForm=(id,draft)=>{
+  const o=id?state.data.offers.find(x=>x.id===id):(draft||{id:null,clientId:"",studentName:"",institution:"",course:"",courseLevel:"Higher Education",currency:"AUD",tuitionTotal:"",intakeStartDate:"",commissionRate:"",commissions:[]});
+  const area=document.getElementById("offer-form-area");if(!area)return;
+  area.innerHTML=`<div class="ov" onclick="if(event.target===this)closeOfferForm()"><div class="modal wide" onclick="event.stopPropagation()">
+  <div class="modal-h"><h3>${id?"编辑Offer":"确认Offer信息"}</h3><button class="icon-btn" onclick="closeOfferForm()">✕</button></div>
+  <div class="modal-b">
+    ${!id&&o.clientId?`<div class="match ok">✅ 已自动匹配：<strong>${esc(clientName(o.clientId))}</strong></div>`:!id?`<div class="match no">⚠️ ${o.studentName?"未匹配到「"+esc(o.studentName)+"」":"未读到学生姓名"}，请手动选择</div>`:""}
+    <div class="grid2 gap">
+      <div class="fld"><span class="fld-l">客户</span><select id="of-client"><option value="">未关联</option>${state.data.clients.map(c=>`<option value="${c.id}"${o.clientId===c.id?" selected":""}>${esc(c.name)}（${esc(c.code)}）</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">学生姓名</span><input id="of-sname" value="${esc(o.studentName||"")}"/></div>
+      <div class="fld"><span class="fld-l">院校</span><input id="of-inst" value="${esc(o.institution||"")}"/></div>
+      <div class="fld"><span class="fld-l">课程</span><input id="of-course" value="${esc(o.course||"")}"/></div>
+      <div class="fld"><span class="fld-l">课程层次</span><select id="of-level">${COURSE_LEVELS.map(x=>`<option${o.courseLevel===x?" selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">币种</span><select id="of-ccy">${Object.keys(CCY).map(k=>`<option value="${k}"${o.currency===k?" selected":""}>${CCY[k].label}</option>`).join("")}</select></div>
+      <div class="fld"><span class="fld-l">学费总额</span><input type="number" id="of-tuition" value="${o.tuitionTotal||""}"/></div>
+      <div class="fld"><span class="fld-l">开学日期</span><input type="date" id="of-intake" value="${o.intakeStartDate||""}"/></div>
+      <div class="fld"><span class="fld-l">佣金比例%</span><input type="number" id="of-rate" value="${o.commissionRate||""}"/></div>
+    </div>
+    <div class="modal-f"><button class="btn" onclick="closeOfferForm()">取消</button><button class="btn primary" onclick="saveOffer('${id||""}')">保存Offer</button></div>
+  </div></div></div>`;
+  window._offerComms=o.commissions||[];
+};
+window.closeOfferForm=()=>{const a=document.getElementById("offer-form-area");if(a)a.innerHTML="";};
+window.saveOffer=id=>{
+  const o={id:id||uid(),clientId:document.getElementById("of-client")?.value||"",studentName:document.getElementById("of-sname")?.value||"",institution:document.getElementById("of-inst")?.value||"",course:document.getElementById("of-course")?.value||"",courseLevel:document.getElementById("of-level")?.value||"Other",currency:document.getElementById("of-ccy")?.value||"AUD",tuitionTotal:Number(document.getElementById("of-tuition")?.value)||0,intakeStartDate:document.getElementById("of-intake")?.value||"",commissionRate:Number(document.getElementById("of-rate")?.value)||0,createdAt:today()};
+  o.commissions=window._offerComms?.length?window._offerComms:buildCommissions(o);
+  update(d=>{if(id){const i=d.offers.findIndex(x=>x.id===id);if(i>=0)d.offers[i]=o;}else d.offers.push(o);return d;});
+  delete window._offerComms;
+};
+window.delOffer=async id=>{if(await confirm2("删除该Offer及佣金记录？"))update(d=>{d.offers=d.offers.filter(x=>x.id!==id);return d;});};
+window.moveComm=async(oid,cid,action)=>{
+  if(action==="refund"&&!(await confirm2("确认将这笔佣金标记为退款？")))return;
+  update(d=>{
+    const o=d.offers.find(x=>x.id===oid);const c=o?.commissions?.find(x=>x.id===cid);if(!c)return d;
+    if(action==="paid"){c.tuitionPaid=true;c.status="claimable";if(!c.claimableDate)c.claimableDate=today();}
+    if(action==="claimed")c.status="claimed";
+    if(action==="received"){c.status="received";d.transactions.push({id:uid(),clientId:o.clientId,kind:"income",incomeType:"佣金",currency:c.currency,amount:c.commissionAmount,date:today(),note:`佣金·${o.institution}·${c.label}`});}
+    if(action==="refund"){const was=c.status==="received";c.status="refunded";if(was)d.transactions.push({id:uid(),clientId:o.clientId,kind:"expense",category:"退款",currency:c.currency,amount:c.commissionAmount,date:today(),note:`佣金退款·${o.institution}·${c.label}`,isRefund:true});}
+    return d;
+  });
+};
+
+window.exportJSON=()=>{
+  const text=JSON.stringify(state.data,null,2);
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"application/json"}));a.download=`VJ台账备份_${today()}.json`;a.click();
+  toast("已导出JSON，请保存到安全的地方");
+};
+window.exportCSV=()=>{
+  const rows=[["日期","类型","客户","明细","币种","金额"]];
+  state.data.transactions.forEach(t=>{const c=state.data.clients.find(c=>c.id===t.clientId);rows.push([t.date,t.kind==="income"?(t.incomeType||"收入"):(t.category||"支出"),c?c.name:"",(t.note||"").replace(/,/g," "),t.currency,(t.kind==="income"?"":"-")+t.amount]);});
+  const csv="\uFEFF"+rows.map(r=>r.join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download=`记账明细_${today()}.csv`;a.click();
+  toast("已导出CSV");
+};
+window.importJSON=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);update({...DEFAULT_DATA,...d});toast("导入成功！");}catch{toast("文件格式错误");}};r.readAsText(f);
+};
+window.clearAll=async()=>{if(await confirm2("确定清空所有数据？此操作不可恢复！"))update(JSON.parse(JSON.stringify(DEFAULT_DATA)));};
+window.saveApiKey=()=>{
+  const k=document.getElementById("api-key-input")?.value?.trim();
+  if(k){localStorage.setItem(ANTHROPIC_KEY_LS,k);ANTHROPIC_KEY=k;toast("API Key已保存");}
+};
+
+// 启动
+state.data=loadData();
+render();
+</script>
+</body>
+</html>
