@@ -674,6 +674,18 @@ onAuthStateChanged(auth,async user=>{
   else{state.loading=false;}
   render();
 });
+
+// 超时检测：5秒后还在载入就提示
+setTimeout(()=>{
+  if(state.loading){
+    state.loading=false;
+    document.getElementById("app").innerHTML=`<div style="padding:60px;text-align:center;color:#A14034">
+      <p style="font-size:18px;font-weight:600;margin-bottom:12px">⚠️ 载入超时</p>
+      <p style="font-size:14px;color:#666;margin-bottom:20px">Firebase 连接失败，可能原因：网络问题或配置错误</p>
+      <button onclick="location.reload()" style="padding:10px 20px;background:#1B2A4A;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px">🔄 重新载入</button>
+    </div>`;
+  }
+},5000);
 </script>
 </body>
 </html>
